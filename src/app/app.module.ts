@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ActivatedRouteTestCompComponent } from './activatedroute-test/activatedroute-test';
+import { RouterlinkTestComponent } from './routerlink-test/routerlink-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ActivatedRouteTestCompComponent
+    ActivatedRouteTestCompComponent,
+    RouterlinkTestComponent
   ],
   imports: [
     BrowserModule,
