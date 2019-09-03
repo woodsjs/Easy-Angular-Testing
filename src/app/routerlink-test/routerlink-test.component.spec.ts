@@ -24,6 +24,7 @@ describe('RouterlinkTestComponent', () => {
   });
 
   it('should create', () => {
+    console.log(RouterLinkDirectiveStub);
     expect(component).toBeTruthy();
   });
 });
