@@ -5,7 +5,18 @@ import { ActivatedRouteTestCompComponent } from './activatedroute-test/activated
 
 const routes: Routes = [
   { path: 'routerlinktest', component: RouterlinkTestComponent },
-  { path: 'activatedroutetest', component: ActivatedRouteTestCompComponent }
+  { path: 'activatedroutetest', component: ActivatedRouteTestCompComponent },
+  {
+    path: 'componentStubTest',
+    loadChildren:
+      () => import('./componentstub-test/componentstub-test.module')
+      .then(mod => mod.ComponentstubTestModule)
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

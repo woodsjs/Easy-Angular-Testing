@@ -1,0 +1,6 @@
+ <p>Functionality input data: {{ inputData }}</p>
+
+ <!-- sentData is the name of the output emitter from our child -->
+ <!-- inputData is the name of the var in the stub that's receiving the ouput from this component
+, which is stored in outputData -->
+ <app-tobestubbed (sentData)="onDataReceived($event)" [inputData]=outputData></app-tobestubbed>
