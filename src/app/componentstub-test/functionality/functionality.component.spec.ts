@@ -7,7 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ToBeStubbedStubComponent } from '../testing/tobestubbed-stub';
 
-describe('FunctionalityComponent', () => {
+describe('ComponentStubTest-FunctionalityComponent', () => {
   let component: FunctionalityComponent;
   let fixture: ComponentFixture<FunctionalityComponent>;
 
@@ -28,7 +28,6 @@ describe('FunctionalityComponent', () => {
   });
 
   it('should create', () => {
-    console.log(component);
     expect(component).toBeTruthy();
   });
 });

@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterlinkTestComponent } from './routerlink-test.component';
 
 // This is added for our RouterLink test
-import { RouterLinkDirectiveStub } from '../testing/router-link-stub.directive';
+import { RouterLinkDirectiveStub } from '../../testing/router-link-stub.directive';
 
 describe('RouterlinkTestComponent', () => {
   let component: RouterlinkTestComponent;
@@ -24,7 +24,6 @@ describe('RouterlinkTestComponent', () => {
   });
 
   it('should create', () => {
-    console.log(RouterLinkDirectiveStub);
     expect(component).toBeTruthy();
   });
 });

@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRouteTestCompComponent } from './activatedroute-test';
 
 // These are added for our ActivatedRoute test
-import { ActivatedRouteStub } from '../testing/activated-route-stub';
+import { ActivatedRouteStub } from '../../testing/activated-route-stub';
 import { ActivatedRoute } from '@angular/router';
 
 describe('ActivatedRouteTestCompComponent', () => {
@@ -37,7 +37,6 @@ describe('ActivatedRouteTestCompComponent', () => {
     // along with subscribing to our paramMap and printing it. If you
     // do this in the test-comp.component's ngOnInit, you'll see the same
     // info.  In this case a paramMap with a params node { this: 'that' }
-    console.log(activatedRoute);
     activatedRoute.paramMap.subscribe(paramMap => console.log(paramMap));
     expect(component).toBeTruthy();
   });
