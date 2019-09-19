@@ -11,15 +11,15 @@ export class TargetSpiesService {
     { type: 'bread and butter', taste: 'sugary', smell: 'bread' }
   ];
 
-  private picklesUpdated = new Subject<{ pickles }>();
+  private picklesUpdated = new Subject< {} >();
 
   constructor() {}
 
-  getPickleUpdateListener() {
+  public getPickleUpdateListener() {
     return this.picklesUpdated.asObservable();
   }
 
-  allPickles() {
+  public allPickles() {
     return this.pickles.slice();
   }
 
@@ -29,5 +29,10 @@ export class TargetSpiesService {
 
   picklesBySmell(smell) {
     return this.pickles.filter(p => p.smell === smell);
+  }
+
+  addPickle( pickle ) {
+    this.pickles.push( pickle );
+    this.picklesUpdated.next(this.allPickles());
   }
 }

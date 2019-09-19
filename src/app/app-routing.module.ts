@@ -8,9 +8,17 @@ const routes: Routes = [
   { path: 'activatedroutetest', component: ActivatedRouteTestCompComponent },
   {
     path: 'componentStubTest',
-    loadChildren:
-      () => import('./componentstub-test/componentstub-test.module')
-      .then(mod => mod.ComponentstubTestModule)
+    loadChildren: () =>
+      import('./componentstub-test/componentstub-test.module').then(
+        mod => mod.ComponentstubTestModule
+      )
+  },
+  {
+    path: 'spiesTests',
+    loadChildren: () =>
+      import('./spies-tests/spies-tests.module').then(
+        mod => mod.SpiesTestsModule
+      )
   },
   {
     path: '',
