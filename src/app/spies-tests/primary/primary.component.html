@@ -1,3 +1,4 @@
-<p>
-  primary works!
-</p>
+<span>
+  <button (click)="addPickle()">Add Pickle</button>
+</span>
+<app-secondary *ngFor="let pickle of thesePickles" [pickle]=pickle></app-secondary>
