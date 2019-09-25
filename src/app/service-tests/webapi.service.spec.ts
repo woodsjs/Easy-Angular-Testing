@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 describe('Service Tests - WebapiService', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   let service: WebapiService;
+  const URL = 'https://jsonplaceholder.typicode.com/todos/';
 
   const mockTodoData = {
     userId: 999,
@@ -34,5 +35,10 @@ describe('Service Tests - WebapiService', () => {
   it('should only call the service one time per request', () => {
     service.getAllTodos();
     expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+  });
+
+  it('should call the expected URL', () => {
+    service.getAllTodos();
+    expect(httpClientSpy.get.calls.allArgs()[0][0]).toEqual(URL);
   });
 });
