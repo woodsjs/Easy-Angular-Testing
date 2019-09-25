@@ -1,12 +1,38 @@
-import { TestBed } from '@angular/core/testing';
-
 import { WebapiService } from './webapi.service';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
-describe('WebapiService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+describe('Service Tests - WebapiService', () => {
+  let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let service: WebapiService;
+
+  const mockTodoData = {
+    userId: 999,
+    id: 999,
+    title: 'Test this thing',
+    completed: false
+  };
+
+  beforeEach(() => {
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    service = new WebapiService(httpClientSpy);
+
+    httpClientSpy.get.and.returnValue(of(mockTodoData));
+  });
 
   it('should be created', () => {
-    const service: WebapiService = TestBed.get(WebapiService);
     expect(service).toBeTruthy();
+  });
+
+  it('should return our single hero with a #get call', () => {
+    const todos = service.getAllTodos();
+    todos.subscribe(data => {
+      expect(data).toEqual(mockTodoData);
+    });
+  });
+
+  it('should only call the service one time per request', () => {
+    service.getAllTodos();
+    expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
   });
 });
