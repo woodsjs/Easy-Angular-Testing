@@ -32,6 +32,7 @@ export class InterComponentCommunicationService {
 
   announceCompletionOfCupcake() {
     this.cupcakeIsDoneSource.next(true);
+    return this.cupcakeDelivery$;
   }
 
   deliverCupcake() {
