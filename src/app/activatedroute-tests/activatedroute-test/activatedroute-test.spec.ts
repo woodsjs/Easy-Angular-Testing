@@ -37,7 +37,7 @@ describe('ActivatedRouteTestCompComponent', () => {
     // along with subscribing to our paramMap and printing it. If you
     // do this in the test-comp.component's ngOnInit, you'll see the same
     // info.  In this case a paramMap with a params node { this: 'that' }
-    activatedRoute.paramMap.subscribe(paramMap => console.log(paramMap));
+    activatedRoute.paramMap.subscribe(paramMap => paramMap);
     expect(component).toBeTruthy();
   });
 });
