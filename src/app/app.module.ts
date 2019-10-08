@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ActivatedRouteTestCompComponent } from './activatedroute-tests/activatedroute-test/activatedroute-test';
 import { RouterlinkTestComponent } from './routerlink-tests/routerlink-test/routerlink-test.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { RouterlinkTestComponent } from './routerlink-tests/routerlink-test/rout
     ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

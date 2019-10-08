@@ -20,6 +20,13 @@ const routes: Routes = [
         mod => mod.SpiesTestsModule
       )
   },
+    {
+    path: 'uiNoninteractive',
+    loadChildren: () =>
+      import('./ui-noninteractive-tests/ui-noninteractive-tests.module').then(
+        mod => mod.UiNoninteractiveTestsModule
+      )
+  },
   {
     path: '',
     redirectTo: '',
