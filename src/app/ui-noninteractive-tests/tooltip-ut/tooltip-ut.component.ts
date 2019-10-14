@@ -9,7 +9,14 @@ export class TooltipUtComponent implements OnInit {
 
   constructor() { }
 
+  public tooltipText = 'bliggle';
+
   ngOnInit() {
+    this.tooltipText = 'Hi y\'all!  I\'m the tooltip!';
+  }
+
+  onClick() {
+    this.tooltipText = 'You know what it\'s for, you just did the thing!';
   }
 
 }

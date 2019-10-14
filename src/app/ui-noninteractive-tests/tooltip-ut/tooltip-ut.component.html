@@ -1,5 +1,6 @@
 <button mat-raised-button
-        matTooltip="Hi there!  I'm a tooltip!"
-        aria-label="Button that displays tooltip">
+        matTooltip={{tooltipText}}
+        aria-label="Button that displays tooltip"
+        (click)="onClick()">
   Hover me!
 </button>
