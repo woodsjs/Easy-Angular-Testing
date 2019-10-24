@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { InterComponentCommunicationService } from './inter-component-communication.service';
+import { Observable } from 'rxjs';
 
 describe('Service Tests - InterComponentCommunicationService', () => {
   let service: InterComponentCommunicationService;
