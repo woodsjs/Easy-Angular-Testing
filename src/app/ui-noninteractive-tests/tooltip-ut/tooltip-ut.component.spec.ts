@@ -85,9 +85,9 @@ describe('ui-noninteractive - TooltipUtComponent', () => {
   // business of testing code that wasn't ours. If the tooltip doesn't trigger,
   // is that our code or would that be the frameworks?  Hmmmm...
   it('should change the input tooltip text when the button is clicked', () => {
-    const bannerDe: DebugElement = fixture.debugElement;
-    const bannerEl: HTMLElement = bannerDe.nativeElement;
-    const button = bannerEl.querySelector('button');
+    const buttonDe: DebugElement = fixture.debugElement;
+    const buttonEl: HTMLElement = buttonDe.nativeElement;
+    const button = buttonEl.querySelector('button');
 
     const inputDe: DebugElement = fixture.debugElement;
     const inputEl: HTMLElement = inputDe.nativeElement;
