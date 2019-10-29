@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SnackbarUtComponent } from './snackbar-ut.component';
 
@@ -8,7 +9,8 @@ describe('ui-noninteractive - SnackbarUtComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SnackbarUtComponent ]
+      declarations: [ SnackbarUtComponent ],
+      imports: [ MatSnackBarModule ]
     })
     .compileComponents();
   }));
