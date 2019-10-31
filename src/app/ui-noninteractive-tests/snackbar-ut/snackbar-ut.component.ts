@@ -21,13 +21,30 @@ export class SnackbarUTExampleComponent {
   templateUrl: './snackbar-ut.component.html',
   styleUrls: ['./snackbar-ut.component.css']
 })
-export class SnackbarUtComponent implements OnInit {
+export class SnackbarUtComponent {
   constructor(private _snackBar: MatSnackBar) {}
 
-  ngOnInit() {}
-
+  // We're simulating a button click doing some thing, and that thing
+  // triggering a snackbar notification.
+  // In this case the thing is dismissing the first snackbar!
+  // Of course, the snackbar principals exist
+  // They should provide information
+  // they should be temporary (disappear without action in a short time)
+  // placed in the UI in a good place
+  // so we're going to not do the action if the action isn't pressed!
   openSnackBarMessage() {
-    this._snackBar.open('Snacking message', 'dismiss');
+    // snackbar principals -
+    // They should provide information
+    // they should be temporary (disappear without action in a short time)
+    // placed in the UI in a good place
+    const firstSnackBarRef = this._snackBar.open(
+      'Snacking message',
+      'do the thing',
+      { duration: 5000 }
+    );
+    firstSnackBarRef.onAction().subscribe(() => {
+      this.openSnackBarComponent();
+    });
   }
 
   // We wanted a little pause here. Why? Because a nice use
@@ -38,13 +55,10 @@ export class SnackbarUtComponent implements OnInit {
   // data in a document.
   openSnackBarComponent() {
     setTimeout(() => {
-      let snackbarRef = this._snackBar.openFromComponent(
-        SnackbarUTExampleComponent,
-        {
-          duration: 5000,
-          data: 'Hey! This took an extra second to show!'
-        }
-      );
+      this._snackBar.openFromComponent(SnackbarUTExampleComponent, {
+        duration: 5000,
+        data: 'Hey! This took an extra second to show!'
+      });
     }, 1000);
   }
 }
