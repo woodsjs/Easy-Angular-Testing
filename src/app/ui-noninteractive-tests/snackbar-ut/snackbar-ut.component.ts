@@ -42,6 +42,10 @@ export class SnackbarUtComponent {
       'do the thing',
       { duration: 5000 }
     );
+
+    this.observeSnackBarOnAction(firstSnackBarRef);
+  }
+  observeSnackBarOnAction(firstSnackBarRef) {
     firstSnackBarRef.onAction().subscribe(() => {
       this.openSnackBarComponent();
     });

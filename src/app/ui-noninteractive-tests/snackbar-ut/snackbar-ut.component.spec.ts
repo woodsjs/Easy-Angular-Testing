@@ -53,24 +53,36 @@ describe('ui-noninteractive - SnackbarUtComponent', () => {
     expect(snackingDiv).toBeTruthy();
   });
 
-  it('should trigger a snackbar notification when action is taken on the first snackbar', async () => {
+  it('should trigger a snackbar notification when action is taken on the first snackbar', () => {
     const buttonDe: DebugElement = fixture.debugElement;
     const buttonEl: HTMLElement = buttonDe.nativeElement;
     const button = buttonEl.querySelector('button');
 
+    spyOn(component, 'observeSnackBarOnAction').and.callThrough();
+    spyOn(component, 'openSnackBarMessage').and.callThrough();
+    // spyOn(component, 'openSnackBarComponent').and.callThrough();
+
     button.click();
     fixture.detectChanges();
 
-    spyOn(component, 'openSnackBarComponent');
+    const snackingDivButton = document.querySelector(
+      'div.mat-simple-snackbar-action button'
+    ) as HTMLButtonElement;
 
-    const snackingDivButton: HTMLButtonElement = document.querySelector('div.mat-simple-snackbar-action button');
     snackingDivButton.click();
-
-    console.log(snackingDivButton);
     fixture.detectChanges();
 
-    expect(component.openSnackBarComponent).toHaveBeenCalled();
-    // expect(snackingDivButton).toBeTruthy();
+    expect(component.observeSnackBarOnAction).toHaveBeenCalled();
+    // expect(component.openSnackBarComponent).toHaveBeenCalled();
+    expect(component.openSnackBarMessage).toHaveBeenCalled();
+  });
+
+  it('should call the second snackbar when the first snackbar action is pressed', () => {
+    spyOn(component, 'openSnackBarMessage');
+
+    component.openSnackBarMessage();
+
+    expect(component.openSnackBarMessage).toHaveBeenCalled();
   });
 
   // these are not great tests, we're really testing core functionality and not our
