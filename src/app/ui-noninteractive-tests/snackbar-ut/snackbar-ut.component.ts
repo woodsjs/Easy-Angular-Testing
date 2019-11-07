@@ -46,7 +46,7 @@ export class SnackbarUtComponent {
     this.observeSnackBarOnAction(firstSnackBarRef);
   }
   observeSnackBarOnAction(firstSnackBarRef) {
-    firstSnackBarRef.onAction().subscribe(() => {
+    return firstSnackBarRef.onAction().subscribe(() => {
       this.openSnackBarComponent();
     });
   }
@@ -58,6 +58,7 @@ export class SnackbarUtComponent {
   // the user Hey! You just got a message!  While they're typing
   // data in a document.
   openSnackBarComponent() {
+    console.log('it\'s been called');
     setTimeout(() => {
       this._snackBar.openFromComponent(SnackbarUTExampleComponent, {
         duration: 5000,

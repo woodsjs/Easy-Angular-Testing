@@ -1,17 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarRef } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarUtComponent } from './snackbar-ut.component';
 import { DebugElement } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 describe('ui-noninteractive - SnackbarUtComponent', () => {
   let component: SnackbarUtComponent;
   let fixture: ComponentFixture<SnackbarUtComponent>;
+  const matSnackSpy = jasmine.createSpyObj('MatSnackBarRef', ['onAction']);
+
+  const onActionMatSnackRefSpy = matSnackSpy.onAction.and.returnValue(
+    of('true')
+  );
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SnackbarUtComponent],
-      imports: [MatSnackBarModule, BrowserAnimationsModule]
+      imports: [MatSnackBarModule, BrowserAnimationsModule],
+      providers: [{ provide: MatSnackBarRef, useValue: matSnackSpy }]
     }).compileComponents();
   }));
 
@@ -58,9 +66,9 @@ describe('ui-noninteractive - SnackbarUtComponent', () => {
     const buttonEl: HTMLElement = buttonDe.nativeElement;
     const button = buttonEl.querySelector('button');
 
-    spyOn(component, 'observeSnackBarOnAction').and.callThrough();
     spyOn(component, 'openSnackBarMessage').and.callThrough();
-    // spyOn(component, 'openSnackBarComponent').and.callThrough();
+    spyOn(component, 'observeSnackBarOnAction').and.callThrough();
+    spyOn(component, 'openSnackBarComponent').and.callThrough();
 
     button.click();
     fixture.detectChanges();
@@ -72,9 +80,9 @@ describe('ui-noninteractive - SnackbarUtComponent', () => {
     snackingDivButton.click();
     fixture.detectChanges();
 
-    expect(component.observeSnackBarOnAction).toHaveBeenCalled();
-    // expect(component.openSnackBarComponent).toHaveBeenCalled();
     expect(component.openSnackBarMessage).toHaveBeenCalled();
+    expect(component.observeSnackBarOnAction).toHaveBeenCalled();
+    expect(component.openSnackBarComponent).toHaveBeenCalled();
   });
 
   it('should call the second snackbar when the first snackbar action is pressed', () => {
