@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSnackBarRef } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarUtComponent } from './snackbar-ut.component';
 import { DebugElement } from '@angular/core';
@@ -9,17 +12,11 @@ import { Observable, of } from 'rxjs';
 describe('ui-noninteractive - SnackbarUtComponent', () => {
   let component: SnackbarUtComponent;
   let fixture: ComponentFixture<SnackbarUtComponent>;
-  const matSnackSpy = jasmine.createSpyObj('MatSnackBarRef', ['onAction']);
-
-  const onActionMatSnackRefSpy = matSnackSpy.onAction.and.returnValue(
-    of('true')
-  );
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SnackbarUtComponent],
-      imports: [MatSnackBarModule, BrowserAnimationsModule],
-      providers: [{ provide: MatSnackBarRef, useValue: matSnackSpy }]
+      imports: [MatSnackBarModule, BrowserAnimationsModule]
     }).compileComponents();
   }));
 
@@ -36,6 +33,7 @@ describe('ui-noninteractive - SnackbarUtComponent', () => {
   // the "should create a snackbar" would be us saying
   // it should "take action" in a nice real test
   // like "it should save the order" or "validate the ticket"
+  // the snackbar should be a result of some other thing, not just pressing a button
   it('should create a snackbar when the button is clicked', () => {
     const buttonDe: DebugElement = fixture.debugElement;
     const buttonEl: HTMLElement = buttonDe.nativeElement;
@@ -61,37 +59,40 @@ describe('ui-noninteractive - SnackbarUtComponent', () => {
     expect(snackingDiv).toBeTruthy();
   });
 
-  it('should trigger a snackbar notification when action is taken on the first snackbar', () => {
+  // if we were calling out, we might want to mock the service or component
+  // and return some value just to be sure the stuff works.
+  // We always want to isolate the SUT.
+  // In this case we're saying the code that is being called is part of
+  // the same component
+  it('should do a thing when action is taken on the first snackbar', async () => {
     const buttonDe: DebugElement = fixture.debugElement;
     const buttonEl: HTMLElement = buttonDe.nativeElement;
     const button = buttonEl.querySelector('button');
 
-    spyOn(component, 'openSnackBarMessage').and.callThrough();
-    spyOn(component, 'observeSnackBarOnAction').and.callThrough();
-    spyOn(component, 'openSnackBarComponent').and.callThrough();
+    // this is a thing that should be done
+    const zeSpy = spyOn(component, 'justWriteAConsoleLog').and.returnValue(
+      of(true)
+    );
 
+    // click to get our first snackbar
     button.click();
     fixture.detectChanges();
 
+    // find the button on our first snackbar
     const snackingDivButton = document.querySelector(
       'div.mat-simple-snackbar-action button'
     ) as HTMLButtonElement;
 
+    // click the button on our first snackbar
     snackingDivButton.click();
     fixture.detectChanges();
 
-    expect(component.openSnackBarMessage).toHaveBeenCalled();
-    expect(component.observeSnackBarOnAction).toHaveBeenCalled();
-    expect(component.openSnackBarComponent).toHaveBeenCalled();
+    fixture.whenStable().then(() => {
+      expect(zeSpy).toHaveBeenCalled();
+    });
   });
 
-  it('should call the second snackbar when the first snackbar action is pressed', () => {
-    spyOn(component, 'openSnackBarMessage');
-
-    component.openSnackBarMessage();
-
-    expect(component.openSnackBarMessage).toHaveBeenCalled();
-  });
+  it('should call the second snackbar when the first snackbar action is pressed', () => {});
 
   // these are not great tests, we're really testing core functionality and not our
   // business process.  Now, if the action on our snackbar was to trigger some other

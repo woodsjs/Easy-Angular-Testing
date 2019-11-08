@@ -46,9 +46,16 @@ export class SnackbarUtComponent {
     this.observeSnackBarOnAction(firstSnackBarRef);
   }
   observeSnackBarOnAction(firstSnackBarRef) {
-    return firstSnackBarRef.onAction().subscribe(() => {
-      this.openSnackBarComponent();
+    firstSnackBarRef.onAction().subscribe(() => {
+      // really this would be, hey do some business logic
+      // based on the button in the first snack bar being pressed
+      // We're just showing how you can open a snackbar component though
+      this.justWriteAConsoleLog();
     });
+  }
+
+  justWriteAConsoleLog() {
+    console.log('Doing a thing based on the second button press');
   }
 
   // We wanted a little pause here. Why? Because a nice use
@@ -58,7 +65,6 @@ export class SnackbarUtComponent {
   // the user Hey! You just got a message!  While they're typing
   // data in a document.
   openSnackBarComponent() {
-    console.log('it\'s been called');
     setTimeout(() => {
       this._snackBar.openFromComponent(SnackbarUTExampleComponent, {
         duration: 5000,
