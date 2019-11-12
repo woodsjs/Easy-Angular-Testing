@@ -22,6 +22,7 @@ export class SnackbarUTExampleComponent {
   styleUrls: ['./snackbar-ut.component.css']
 })
 export class SnackbarUtComponent {
+
   constructor(private _snackBar: MatSnackBar) {}
 
   // We're simulating a button click doing some thing, and that thing
