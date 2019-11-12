@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // we'll use this in case we're testing on a non-html platform
 import { DebugElement } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TooltipUtComponent } from './tooltip-ut.component';
 import { By } from '@angular/platform-browser';
@@ -15,7 +16,7 @@ describe('ui-noninteractive - TooltipUtComponent', () => {
       declarations: [TooltipUtComponent],
       // We need to import the tooltip module, or we'll get errors that
       // the material module we're testing isn't a known property
-      imports: [MatTooltipModule]
+      imports: [MatTooltipModule, NoopAnimationsModule]
     }).compileComponents();
   }));
 

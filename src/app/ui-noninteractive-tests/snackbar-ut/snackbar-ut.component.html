@@ -1,3 +1,17 @@
-<p>
-  snackbar-ut works!
-</p>
+<button
+  mat-button
+  id='messageButton'
+  (click)="openSnackBarMessage()"
+  aria-label="Show an example snack-bar"
+>
+  SB Message 
+</button>
+
+<button
+  mat-button
+  id='compButton'
+  (click)="openSnackBarComponent()"
+  aria-label="Show an example snack-bar based on a component"
+>
+  SB Message from a component
+</button>
