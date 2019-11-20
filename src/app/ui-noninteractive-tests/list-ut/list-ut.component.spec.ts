@@ -3,6 +3,7 @@ import { MatListModule } from '@angular/material/list';
 
 import { ListUtComponent } from './list-ut.component';
 import { DebugElement } from '@angular/core';
+import { forEach } from '@angular/router/src/utils/collection';
 
 describe('ui-noninteractive - ListUtComponent', () => {
   let component: ListUtComponent;
@@ -96,16 +97,23 @@ describe('ui-noninteractive - ListUtComponent', () => {
         'mat-list#' + animalType
       );
 
+      // console.log(ourDomListUnderTest);
+      // console.log(ourDomListUnderTest.getElementsByTagName('h4'));
       // here is where we would put our expect clause to look at the children,
       // then pick the attributes and test the array against those attributes
-      ourDomListUnderTest.childNodes.forEach(matListItem =>
-        matListItem.childNodes.forEach(item => console.log("ze item" + item.textContent))
+
+      // we need to check between the displayed list and what we have in landAnimals
+      // we could just check between landAnimals and the output of showFilteredAnimals but
+      // that really does not meet our needs
+
+      Array.from(ourDomListUnderTest.getElementsByTagName('h4')).forEach(
+        element => {
+          expect(landAnimals).toContain(
+            jasmine.objectContaining({ name: element.innerText })
+          );
+        }
       );
     });
-
-    // we need to check between the displayed list and what we have in landAnimals
-    // we could just check between landAnimals and the output of showFilteredAnimals but
-    // that really does not meet our needs
   });
 
   it('should show the user the correct avatar', () => {});
