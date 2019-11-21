@@ -1,15 +1,30 @@
 <button
   mat-button
-  id='messageButton'
+  id='landAnimalButton'
   (click)="showFilteredAnimals('land')"
-  aria-label="Show an example snack-bar"
+  aria-label="Show an example land animal list"
 >
   Land Animals
 </button>
 
+<button
+  mat-button
+  id='airAnimalButton'
+  (click)="showFilteredAnimals('air')"
+  aria-label="Show an example air animal list"
+>
+  Air Animals
+</button>
+
 <mat-list id="{{ listType }}">
   <mat-list-item *ngFor="let animal of listData">
-    <!-- <img src={{ animal.avatar }}> -->
+      <span>
+        <img
+          [src]="animal.avatar"
+          alt="{{ animal.name }}"
+          class="img-responsive"
+          style="max-height: 50px;">
+      </span>
     <h4 mat-line>{{ animal.name }}</h4>
     <p mat-line>{{ animal.description }}</p>
   </mat-list-item>

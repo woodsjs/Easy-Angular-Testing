@@ -13,19 +13,22 @@ describe('ui-noninteractive - ListUtComponent', () => {
     {
       name: 'Blue Bull',
       description: 'This is a Blue Bull',
-      avatar: 'https://commons.wikimedia.org/wiki/File:1000BlueBull.jpg',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/7/72/1000BlueBull.jpg',
       category: 'land'
     },
     {
       name: 'Cervus',
       description: 'This is a Cervus',
-      avatar: 'https://commons.wikimedia.org/wiki/File:102Cervus.jpg',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/6/62/102Cervus.jpg',
       category: 'land'
     },
     {
       name: 'Black Buck',
       description: 'This is a Black Buck',
-      avatar: 'https://commons.wikimedia.org/wiki/File:10BlackBuck.jpg',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/f/f0/10BlackBuck.jpg',
       category: 'land'
     }
   ];
@@ -34,14 +37,15 @@ describe('ui-noninteractive - ListUtComponent', () => {
     {
       name: 'item four',
       description: 'This is item four',
-      avatar: 'https://commons.wikimedia.org/wiki/File:3617brahminy-mynah.jpg',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/2/2f/3617brahminy-mynah.jpg',
       category: 'air'
     },
     {
-      name: 'item five',
-      description: 'This is item five',
+      name: 'Malabar Parkeet',
+      description: 'This is a parkeet',
       avatar:
-        'https://commons.wikimedia.org/wiki/File:2005-malabar-parkeet-p.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/7/71/2005-malabar-parkeet-p.jpg',
       category: 'air'
     }
   ];
@@ -76,7 +80,7 @@ describe('ui-noninteractive - ListUtComponent', () => {
   it('should create a list with land animals', () => {
     const buttonDe: DebugElement = fixture.debugElement;
     const buttonEl: HTMLElement = buttonDe.nativeElement;
-    const button = buttonEl.querySelector('button');
+    const button = buttonEl.querySelector('button#landAnimalButton');
 
     const animalType = 'land';
 
@@ -84,10 +88,14 @@ describe('ui-noninteractive - ListUtComponent', () => {
     // it from a DB or a web API.  Here were smushing that into a call to
     // getLandAnimals in the same component for show.
     // but this mocked call could be the same!
-    spyOn(component, 'getLandAnimals').and.returnValue(landAnimals);
+    // The point here is that we shouldn't test functionality from an outside
+    // service here, we should test the service in the service tests. So we
+    // trust the data is good.
+    spyOn(component, 'getAnimalByType').and.returnValue(landAnimals);
 
     // this method will call the getLandAnimals method, which will be intercepted above
-    button.click();
+    const mouseEvent = new MouseEvent('click');
+    button.dispatchEvent(mouseEvent);
     fixture.detectChanges();
 
     // find our mat list. It's in our best interest to add an id to elements
@@ -97,14 +105,14 @@ describe('ui-noninteractive - ListUtComponent', () => {
         'mat-list#' + animalType
       );
 
-      // console.log(ourDomListUnderTest);
-      // console.log(ourDomListUnderTest.getElementsByTagName('h4'));
       // here is where we would put our expect clause to look at the children,
       // then pick the attributes and test the array against those attributes
 
       // we need to check between the displayed list and what we have in landAnimals
       // we could just check between landAnimals and the output of showFilteredAnimals but
-      // that really does not meet our needs
+      // that really does not meet our needs. What we are doing is verifying our front end
+      // is triggering the correct action to get land animals and display the right
+      // content for those animals
 
       Array.from(ourDomListUnderTest.getElementsByTagName('h4')).forEach(
         element => {
@@ -116,7 +124,43 @@ describe('ui-noninteractive - ListUtComponent', () => {
     });
   });
 
-  it('should show the user the correct avatar', () => {});
+  // we can use the same stuff from above
+  it('should show the user the correct avatar', () => {
+    const buttonDe: DebugElement = fixture.debugElement;
+    const buttonEl: HTMLElement = buttonDe.nativeElement;
+    const button = buttonEl.querySelector('button#airAnimalButton');
+
+    const animalType = 'air';
+
+    spyOn(component, 'getAnimalByType').and.returnValue(landAnimals);
+
+    const mouseEvent = new MouseEvent('click');
+    button.dispatchEvent(mouseEvent);
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const ourDomListUnderTest = document.querySelector(
+        'mat-list#' + animalType
+      );
+
+      // console.log(ourDomListUnderTest);
+
+      // let's rip through this and create objects with name and avatar
+      // then say, the object needs to contain both the name and avatar
+      Array.from(
+        ourDomListUnderTest.getElementsByTagName('mat-list-item')
+      ).forEach(element => {
+        const animalName = element.getElementsByTagName('h4')[0].innerText;
+        const animalAvatar = element
+          .getElementsByTagName('img')[0]
+          .getAttribute('src');
+
+        expect(landAnimals).toContain(
+          jasmine.objectContaining({ name: animalName, avatar: animalAvatar })
+        );
+      });
+    });
+  });
 
   it('should show a list with subheaders based on category', () => {});
 });
