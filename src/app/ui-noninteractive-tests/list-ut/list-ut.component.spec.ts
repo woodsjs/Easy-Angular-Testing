@@ -50,6 +50,44 @@ describe('ui-noninteractive - ListUtComponent', () => {
     }
   ];
 
+  const allAnimals = [
+    {
+      name: 'Blue Bull',
+      description: 'This is a Blue Bull',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/7/72/1000BlueBull.jpg',
+      category: 'land'
+    },
+    {
+      name: 'Cervus',
+      description: 'This is a Cervus',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/6/62/102Cervus.jpg',
+      category: 'land'
+    },
+    {
+      name: 'Black Buck',
+      description: 'This is a Black Buck',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/f/f0/10BlackBuck.jpg',
+      category: 'land'
+    },
+    {
+      name: 'Mynah',
+      description: 'This is a Mynah',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/2/2f/3617brahminy-mynah.jpg',
+      category: 'air'
+    },
+    {
+      name: 'Malabar Parkeet',
+      description: 'This is a parkeet',
+      avatar:
+        'https://upload.wikimedia.org/wikipedia/commons/7/71/2005-malabar-parkeet-p.jpg',
+      category: 'air'
+    }
+  ];
+  
   const listItems = [];
 
   beforeEach(async(() => {
@@ -162,5 +200,44 @@ describe('ui-noninteractive - ListUtComponent', () => {
     });
   });
 
-  it('should show a list with subheaders based on category', () => {});
+  it('should show a list with subheaders based on category', () => {
+    const buttonDe: DebugElement = fixture.debugElement;
+    const buttonEl: HTMLElement = buttonDe.nativeElement;
+    const button = buttonEl.querySelector('button#sectionOfAnimals');
+
+    spyOn(component, 'getAllAnimals').and.returnValue(allAnimals);
+
+    const mouseEvent = new MouseEvent('click');
+    button.dispatchEvent(mouseEvent);
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const ourDomListUnderTest = document.querySelector(
+        'mat-list#allAnimals'
+      );
+
+      // Array.from(ourDomListUnderTest).forEach(element => {
+      //   console.log(element);
+      // });
+
+      console.log(ourDomListUnderTest);
+
+      // is will be our sectioned list.
+      // Array.from(
+      //   ourDomListUnderTest.getElementsByTagName('mat-list-item')
+      // ).forEach(element => {
+      //   const animalName = element.getElementsByTagName('h4')[0].innerText;
+      //   const animalAvatar = element
+      //     .getElementsByTagName('img')[0]
+      //     .getAttribute('src');
+
+      //   expect(landAnimals).toContain(
+      //     jasmine.objectContaining({
+      //       name: animalName,
+      //       avatar: animalAvatar
+      //     })
+      //   );
+      // });
+    });
+  });
 });
