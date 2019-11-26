@@ -87,7 +87,7 @@ describe('ui-noninteractive - ListUtComponent', () => {
       category: 'air'
     }
   ];
-  
+
   const listItems = [];
 
   beforeEach(async(() => {
@@ -181,8 +181,6 @@ describe('ui-noninteractive - ListUtComponent', () => {
         'mat-list#' + animalType
       );
 
-      // console.log(ourDomListUnderTest);
-
       // let's rip through this and create objects with name and avatar
       // then say, the object needs to contain both the name and avatar
       Array.from(
@@ -213,14 +211,14 @@ describe('ui-noninteractive - ListUtComponent', () => {
 
     fixture.whenStable().then(() => {
       const ourDomListUnderTest = document.querySelector(
-        'mat-list#allAnimals'
+        'mat-list#subsectionedAnimals'
       );
 
       // Array.from(ourDomListUnderTest).forEach(element => {
       //   console.log(element);
       // });
 
-      console.log(ourDomListUnderTest);
+      // console.log(ourDomListUnderTest);
 
       // is will be our sectioned list.
       // Array.from(
@@ -239,5 +237,12 @@ describe('ui-noninteractive - ListUtComponent', () => {
       //   );
       // });
     });
+  });
+
+  it('should only return unique animal types', () => {
+    const uniqueTypes = ['land', 'air'];
+
+    component.setListSectionsWithUniqueTypes();
+    expect(component.listSections).toEqual(uniqueTypes);
   });
 });

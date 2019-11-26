@@ -52,28 +52,39 @@ export class ListUtComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
-
-  getAnimalByType(animalType: string) {
-    return this.apiReturnedAnimals.filter(
-      animal => animal.category === animalType
-    );
+  ngOnInit() {
+    this.listData = this.getAllAnimals();
+    this.setListSectionsWithUniqueTypes();
   }
 
   getAllAnimals() {
     return this.apiReturnedAnimals;
   }
 
+  getAnimalByType(animalType: string) {
+    this.listData = this.getAllAnimals();
+    return this.listData.filter(animal => animal.category === animalType);
+  }
+
+  getUniqueAnimalTypes() {
+    this.listData = this.getAllAnimals();
+    return this.listData
+      .map(x => x.category)
+      .filter((val, ind, self) => self.indexOf(val) === ind);
+  }
+
+  setListSectionsWithUniqueTypes() {
+    this.listSections = this.getUniqueAnimalTypes();
+  }
+
   showFilteredAnimals(animalType: string) {
     // this is where we build pass our data to our list
-    this.listData = this.getAnimalByType(animalType);
+    // this.listData = this.getAllAnimals();
     this.listType = animalType;
+    this.listData = this.getAnimalByType(animalType);
   }
 
   showAllAnimals() {
     this.listData = this.getAllAnimals();
-    this.listSections = this.listData
-      .map(x => x.category)
-      .filter((v, i, s) => s.indexOf(v) === i);
   }
 }
