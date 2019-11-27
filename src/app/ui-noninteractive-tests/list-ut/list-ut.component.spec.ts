@@ -3,7 +3,6 @@ import { MatListModule } from '@angular/material/list';
 
 import { ListUtComponent } from './list-ut.component';
 import { DebugElement } from '@angular/core';
-import { forEach } from '@angular/router/src/utils/collection';
 
 describe('ui-noninteractive - ListUtComponent', () => {
   let component: ListUtComponent;
@@ -122,16 +121,18 @@ describe('ui-noninteractive - ListUtComponent', () => {
 
     const animalType = 'land';
 
-    // we would most likely get our data from a service, either to retreive
-    // it from a DB or a web API.  Here were smushing that into a call to
-    // getLandAnimals in the same component for show.
-    // but this mocked call could be the same!
-    // The point here is that we shouldn't test functionality from an outside
-    // service here, we should test the service in the service tests. So we
-    // trust the data is good.
-    spyOn(component, 'getAnimalByType').and.returnValue(landAnimals);
+    // Here we are spying on a call to getAnimalsByType,
+    // which will be called from our show method.
+    // If we were getting this data from a service,
+    // we would still spy on, and mock, that call.
+    // The point here is that we shouldn't test functionality
+    // from an outside service here, we should test the service
+    // in that service's tests. So we trust the data from our
+    // service is good, because it's tested already.
+    spyOn(component, 'getAnimalsByType').and.returnValue(landAnimals);
 
-    // this method will call the getLandAnimals method, which will be intercepted above
+    // this method will call the showFilteredAnimas method, which invokes
+    // the getAnimalsByType method, which will be intercepted above
     const mouseEvent = new MouseEvent('click');
     button.dispatchEvent(mouseEvent);
     fixture.detectChanges();
@@ -162,15 +163,43 @@ describe('ui-noninteractive - ListUtComponent', () => {
     });
   });
 
+  it('should create a list with all animals', () => {
+    const buttonDe: DebugElement = fixture.debugElement;
+    const buttonEl: HTMLElement = buttonDe.nativeElement;
+    const button = buttonEl.querySelector('button#allAnimals');
+
+    const animalType = 'all';
+
+    spyOn(component, 'getAllAnimals').and.returnValue(allAnimals);
+
+    const mouseEvent = new MouseEvent('click');
+    button.dispatchEvent(mouseEvent);
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const ourDomListUnderTest = document.querySelector(
+        'mat-list#' + animalType
+      );
+
+      Array.from(ourDomListUnderTest.getElementsByTagName('h4')).forEach(
+        element => {
+          expect(allAnimals).toContain(
+            jasmine.objectContaining({ name: element.innerText })
+          );
+        }
+      );
+    });
+  });
+
   // we can use the same stuff from above
   it('should show the user the correct avatar', () => {
     const buttonDe: DebugElement = fixture.debugElement;
     const buttonEl: HTMLElement = buttonDe.nativeElement;
     const button = buttonEl.querySelector('button#airAnimalButton');
 
-    const animalType = 'air';
+    const animalType = 'land';
 
-    spyOn(component, 'getAnimalByType').and.returnValue(landAnimals);
+    spyOn(component, 'getAnimalsByType').and.returnValue(landAnimals);
 
     const mouseEvent = new MouseEvent('click');
     button.dispatchEvent(mouseEvent);
@@ -196,53 +225,5 @@ describe('ui-noninteractive - ListUtComponent', () => {
         );
       });
     });
-  });
-
-  it('should show a list with subheaders based on category', () => {
-    const buttonDe: DebugElement = fixture.debugElement;
-    const buttonEl: HTMLElement = buttonDe.nativeElement;
-    const button = buttonEl.querySelector('button#sectionOfAnimals');
-
-    spyOn(component, 'getAllAnimals').and.returnValue(allAnimals);
-
-    const mouseEvent = new MouseEvent('click');
-    button.dispatchEvent(mouseEvent);
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      const ourDomListUnderTest = document.querySelector(
-        'mat-list#subsectionedAnimals'
-      );
-
-      // Array.from(ourDomListUnderTest).forEach(element => {
-      //   console.log(element);
-      // });
-
-      // console.log(ourDomListUnderTest);
-
-      // is will be our sectioned list.
-      // Array.from(
-      //   ourDomListUnderTest.getElementsByTagName('mat-list-item')
-      // ).forEach(element => {
-      //   const animalName = element.getElementsByTagName('h4')[0].innerText;
-      //   const animalAvatar = element
-      //     .getElementsByTagName('img')[0]
-      //     .getAttribute('src');
-
-      //   expect(landAnimals).toContain(
-      //     jasmine.objectContaining({
-      //       name: animalName,
-      //       avatar: animalAvatar
-      //     })
-      //   );
-      // });
-    });
-  });
-
-  it('should only return unique animal types', () => {
-    const uniqueTypes = ['land', 'air'];
-
-    component.setListSectionsWithUniqueTypes();
-    expect(component.listSections).toEqual(uniqueTypes);
   });
 });
