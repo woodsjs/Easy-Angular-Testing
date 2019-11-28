@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 
 import { CardUtComponent } from './card-ut/card-ut.component';
 import { ListUtComponent } from './list-ut/list-ut.component';
@@ -31,7 +32,8 @@ import { UINoninteractiveTestsRoutingModule } from './ui-noninteractive-test-rou
     UINoninteractiveTestsRoutingModule,
     MatButtonModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatListModule
   ],
   entryComponents: [ SnackbarUTExampleComponent ]
 })
