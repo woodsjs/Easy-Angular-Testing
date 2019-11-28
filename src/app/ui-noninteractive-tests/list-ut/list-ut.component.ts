@@ -53,8 +53,7 @@ export class ListUtComponent implements OnInit {
 
   ngOnInit() {
     // start showing everything.
-    this.listData = this.getAllAnimals();
-    this.listType = 'all';
+    this.showAllAnimals();
   }
 
   getAllAnimals() {
