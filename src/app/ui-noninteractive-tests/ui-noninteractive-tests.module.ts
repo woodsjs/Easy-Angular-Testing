@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { CardUtComponent } from './card-ut/card-ut.component';
 import { ListUtComponent } from './list-ut/list-ut.component';
@@ -33,7 +34,8 @@ import { UINoninteractiveTestsRoutingModule } from './ui-noninteractive-test-rou
     MatButtonModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   entryComponents: [ SnackbarUTExampleComponent ]
 })
