@@ -1,21 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DialogUtComponent } from './dialog-ut.component';
+import {
+  DialogUtComponent,
+  DialogOverviewExampleDialogComponent
+} from './dialog-ut.component';
 
 describe('ui-noninteractive - DialogUtComponent', () => {
   let component: DialogUtComponent;
   let fixture: ComponentFixture<DialogUtComponent>;
 
   const testItems = ['thing one', 'thing two', 'thing three'];
+  const oneItemRemoved = ['thing one', 'thing three'];
 
   const itemToDelete = 'thing two';
   const itemToNotDelete = 'thing three';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DialogUtComponent],
-      imports: [MatListModule]
+      declarations: [DialogUtComponent, DialogOverviewExampleDialogComponent],
+      imports: [MatListModule, MatDialogModule, BrowserAnimationsModule]
     }).compileComponents();
   }));
 
@@ -42,10 +48,7 @@ describe('ui-noninteractive - DialogUtComponent', () => {
     // let's get our list item!
     const ourDomListUnderTest = document.querySelector('mat-list#testList');
 
-    console.log('ourDomLIstUnderTest ', ourDomListUnderTest);
-    // now let's get the inner text, and filter out on this list item
-    // then pull the delete button
-
+    // this should be Thing Two
     const listItemToDelete = Array.from(
       ourDomListUnderTest.getElementsByTagName('mat-list-item')
     ).filter(
@@ -53,12 +56,9 @@ describe('ui-noninteractive - DialogUtComponent', () => {
         element.getElementsByTagName('h4')[0].innerText === itemToDelete
     );
 
-    console.log('List item to delete ', listItemToDelete);
-
     // there should only be one of these, so go for zero
     const deleteButton = listItemToDelete[0].getElementsByTagName('button')[0];
 
-    console.log('delete button ', deleteButton);
     // and click the button
     deleteButton.click();
     fixture.detectChanges();
@@ -71,7 +71,32 @@ describe('ui-noninteractive - DialogUtComponent', () => {
   });
 
   it('should delete a list item when the dialog is confirmed', () => {
-    expect(component).toBeTruthy();
+    const ourDomListUnderTest = document.querySelector('mat-list#testList');
+
+    // this should be Thing Two
+    const listItemToDelete = Array.from(
+      ourDomListUnderTest.getElementsByTagName('mat-list-item')
+    ).filter(
+      element =>
+        element.getElementsByTagName('h4')[0].innerText === itemToDelete
+    );
+
+    const deleteButton = listItemToDelete[0].getElementsByTagName('button')[0];
+
+    // and click the button
+    deleteButton.click();
+    fixture.detectChanges();
+
+    // here's where we delete the item, calling removeThing
+    // then check that our new list of items matches expected
+    fixture.whenStable().then(() => {
+      // and we should have a dialog, grab it to find the delete button
+      const dialogDiv = document.querySelector('mat-dialog-container');
+
+      // clicky
+
+      expect(component.getThings()).toEqual(oneItemRemoved);
+    });
   });
 
   it('should not delete a list item when the dialog is rejected', () => {

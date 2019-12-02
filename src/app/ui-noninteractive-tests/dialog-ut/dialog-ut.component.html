@@ -1,6 +1,6 @@
 <mat-list id="testList">
   <mat-list-item *ngFor="let item of ourItems">
     <h4 mat-line>{{ item }}</h4>
-    <button mat-button>Delete</button>
+    <button mat-button (click)="onDelete(item)">Delete</button>
   </mat-list-item>
 </mat-list>
