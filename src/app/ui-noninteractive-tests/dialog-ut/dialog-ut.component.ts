@@ -11,8 +11,8 @@ import {
     '<h1 mat-dialog-title>Really Delete?<h1>\
     <div mat-dialog-content>{{data}} will be permanantly deleted.<div>\
     <div mat-dialog-actions>\
-    <button mat-button (click)="onNoClick()">No Thanks</button>\
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>\
+    <button mat-button id="noThanks" (click)="onNoClick()">No Thanks</button>\
+    <button mat-button [mat-dialog-close]="data" id="doIt" cdkFocusInitial>Ok</button>\
     </div>'
 })
 export class DialogOverviewExampleDialogComponent {
@@ -42,10 +42,6 @@ export class DialogUtComponent implements OnInit {
     return this.ourItems.slice();
   }
 
-  removeThing(thingName) {
-    // this is where we would put code to act on removing the item
-    console.log('removing ', thingName);
-  }
   onDelete(item) {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
       width: '250px',
@@ -55,7 +51,10 @@ export class DialogUtComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if ( result ) {
-        this.removeThing(result);
+            // this would be a direct call to a service (yuch),
+            // or better a call to a method that calls a service and deletes the item
+            // we would then mock the service and look for calls to it
+            console.log('removing ', result);
       }
     });
   }
