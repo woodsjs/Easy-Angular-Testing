@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -9,7 +9,7 @@ import {
   selector: 'app-dialog-overview-example-dialog',
   template:
     '<h1 mat-dialog-title>Really Delete?<h1>\
-    <div mat-dialog-content>{{data}} will be permanantly deleted.<div>\
+    <div mat-dialog-content id="dataMessage">{{data}} will be permanantly deleted.<div>\
     <div mat-dialog-actions>\
     <button mat-button id="noThanks" (click)="onNoClick()">No Thanks</button>\
     <button mat-button [mat-dialog-close]="data" id="doIt" cdkFocusInitial>Ok</button>\
@@ -31,16 +31,10 @@ export class DialogOverviewExampleDialogComponent {
   templateUrl: './dialog-ut.component.html',
   styleUrls: ['./dialog-ut.component.css']
 })
-export class DialogUtComponent implements OnInit {
+export class DialogUtComponent {
   ourItems = ['thing one', 'thing two', 'thing three'];
 
   constructor(public dialog: MatDialog) {}
-
-  ngOnInit() {}
-
-  getThings() {
-    return this.ourItems.slice();
-  }
 
   onDelete(item) {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {

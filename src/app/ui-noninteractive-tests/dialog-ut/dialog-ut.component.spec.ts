@@ -12,10 +12,10 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 // why I don't mock matDialog - first, I don't want to have to mock many methods
 // in someone else's work. I also know that, or hope that, believe that even, there
 // is testing done to the mat-dialog code by the folks that maintain it. When the dialog
-// opens, I don't care to test that the folks who wrote the code properly implemented the 
+// opens, I don't care to test that the folks who wrote the code properly implemented the
 // call to the close() method, I care that when the dialog disappears, the proper code on MY side is
 // called.  That's all me.
-// Next, from my perspective, which has been known to be wrong, what I want to 
+// Next, from my perspective, which has been known to be wrong, what I want to
 // test is that the flow of work is functioning. So, I click the button
 // and the dialog appears, I make a selection in the dialog and the proper thing
 // happens.
@@ -25,9 +25,9 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 // I'm interested in testing.
 // For example, if my user stories are
 // As a data entry clerk, I want to be able to delete an item directly from the list of
-// items in an order, so that I can perform my work faster (say that, in the current iteration, they have to go INTO the 
+// items in an order, so that I can perform my work faster (say that, in the current iteration, they have to go INTO the
 // item to delete it).
-// As a data entry clerk, I want to be able to confirm deleting an item from the list before it's removed, to be 
+// As a data entry clerk, I want to be able to confirm deleting an item from the list before it's removed, to be
 // sure I selected the correct item.
 // This is what I want to test display list with delete buttons for the data entry clerk ->
 // clerk clicks delete button on an item -> dialog displays with delete and don't delete buttons ->
@@ -123,22 +123,19 @@ describe('ui-noninteractive - DialogUtComponent', () => {
 
       // clicky
       const okButton = dialogDiv.querySelector('button#doIt');
-
       const mouseEvent = new MouseEvent('click');
+
       okButton.dispatchEvent(mouseEvent);
       fixture.detectChanges();
-
-      // here we would check that our mocked service returned the right data
-      // based on the passed parameter.
-      expect(component.onDelete).toHaveBeenCalledWith(itemToDelete);
     });
+
+    // here we would check that our mocked service returned the right data
+    // based on the passed parameter.
+    expect(component.onDelete).toHaveBeenCalledWith(itemToDelete);
   });
 
-  it('should not make a call to delete a list item when the dialog is rejected', () => {
-    spyOn(component, 'onDelete');
-
+  it('should have a dialog that contains the item name that will be deleted', () => {
     const ourDomListUnderTest = document.querySelector('mat-list#testList');
-
     const listItemToDelete = Array.from(
       ourDomListUnderTest.getElementsByTagName('mat-list-item')
     ).filter(
@@ -152,16 +149,9 @@ describe('ui-noninteractive - DialogUtComponent', () => {
 
     fixture.whenStable().then(() => {
       const dialogDiv = document.querySelector('mat-dialog-container');
-      const rejectButton = dialogDiv.querySelector('button#noThanks');
-      const mouseEvent = new MouseEvent('click');
+      const dataMessageDiv = dialogDiv.querySelector('#dataMessage');
 
-      rejectButton.dispatchEvent(mouseEvent);
-      fixture.detectChanges();
-
-      // here we would check that our mock service wasn't called, maybe?
-      // That our list didn't change?
-      // We're not going to do that, but put something in to pass the test.
-      expect(component.onDelete).toHaveBeenCalled();
+      expect(dataMessageDiv.textContent).toContain(itemToDelete);
     });
   });
 });
