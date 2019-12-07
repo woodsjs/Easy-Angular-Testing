@@ -197,7 +197,7 @@ describe('ui-noninteractive - ListUtComponent', () => {
     const buttonEl: HTMLElement = buttonDe.nativeElement;
     const button = buttonEl.querySelector('button#airAnimalButton');
 
-    const animalType = 'land';
+    const animalType = 'air';
 
     spyOn(component, 'getAnimalsByType').and.returnValue(landAnimals);
 
@@ -226,5 +226,4 @@ describe('ui-noninteractive - ListUtComponent', () => {
       });
     });
   });
-  
 });
