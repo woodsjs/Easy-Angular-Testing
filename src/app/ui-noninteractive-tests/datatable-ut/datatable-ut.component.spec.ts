@@ -1,14 +1,82 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatatableUtComponent } from './datatable-ut.component';
+import { MatTableModule } from '@angular/material/table';
 
 describe('ui-noninteractive - DatatableUtComponent', () => {
   let component: DatatableUtComponent;
   let fixture: ComponentFixture<DatatableUtComponent>;
 
+  const dataDump = [
+    {
+      name: 'Bear',
+      type: 'animal',
+      size: 'large'
+    },
+    {
+      name: 'Hamburger',
+      type: 'food',
+      size: 'small'
+    },
+    {
+      name: 'Dog',
+      type: 'animal',
+      size: 'medium'
+    },
+    {
+      name: 'Cat',
+      type: 'animal',
+      size: 'small'
+    },
+    {
+      name: 'Hotdog',
+      type: 'food',
+      size: 'small'
+    },
+    {
+      name: 'Sheetcake',
+      type: 'food',
+      size: 'medium'
+    },
+    {
+      name: 'Burrito',
+      type: 'food',
+      size: 'grande'
+    },
+    {
+      name: 'Elephant',
+      type: 'animal',
+      size: 'xLarge'
+    }
+  ];
+
+  const validAnimals = [
+    {
+      name: 'Bear',
+      type: 'animal',
+      size: 'large'
+    },
+    {
+      name: 'Dog',
+      type: 'animal',
+      size: 'medium'
+    },
+    {
+      name: 'Cat',
+      type: 'animal',
+      size: 'small'
+    },
+    {
+      name: 'Elephant',
+      type: 'animal',
+      size: 'xLarge'
+    }
+  ];
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DatatableUtComponent]
+      declarations: [DatatableUtComponent],
+      imports: [MatTableModule]
     }).compileComponents();
   }));
 
@@ -29,9 +97,69 @@ describe('ui-noninteractive - DatatableUtComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show our food data', () => {});
+  it('should show our animal data', () => {
+    // let's get our datatable item!
+    const ourDomTableUnderTest = document.querySelector('table#testTable');
 
-  it('should show our food data sorted by name in alpha order', () => {});
+    // // this should be animals put in our table
+    // const animalsInTable = Array.from(
+    //   ourDomTableUnderTest.getElementsByTagName('.mat-row')
+    // );
+    const animalsInTable = Array.from(
+      ourDomTableUnderTest.getElementsByClassName('mat-row')
+    );
 
-  it('should show the food name, country of origin and base ingredients element', () => {});
+    // we can choose specific columns here, we don't necessarily need them all
+    // just enough to find each item, that makes each row unique
+    animalsInTable.forEach(animal => {
+      // lets get the data from our columns.
+      // The classname is mat-column-{columnName}
+      const animalName = animal
+        .getElementsByClassName('mat-column-name')
+        .item(0).textContent;
+      const animalType = animal
+        .getElementsByClassName('mat-column-type')
+        .item(0).textContent;
+      const animalSize = animal
+        .getElementsByClassName('mat-column-size')
+        .item(0).textContent;
+
+      // check if the anmials are in our final list. Create our object with the data above
+      // and use jasmine.objectContaining
+      expect(validAnimals).toContain(
+        jasmine.objectContaining({
+          type: animalType,
+          name: animalName,
+          size: animalSize
+        })
+      );
+    });
+  });
+
+  it('should show the columns we expect', () => {
+    // let's get our datatable item!
+    const ourDomTableUnderTest = document.querySelector('table#testTable');
+
+    // // this should be animals put in our table
+    // const animalsInTable = Array.from(
+    //   ourDomTableUnderTest.getElementsByTagName('.mat-row')
+    // );
+    const tableHeaders = Array.from(
+      ourDomTableUnderTest.getElementsByClassName('mat-header-cell')
+    );
+    const headerClasses = [
+      'mat-column-name',
+      'mat-column-type',
+      'mat-column-size'
+    ];
+
+    // let's check against our expected. There's a gap here,
+    // we check that each expected header is in the list, but
+    // not that there are extra headers we don't expect
+    tableHeaders.forEach(header => {
+      expect(
+        headerClasses.some(item => header.classList.contains(item))
+      ).toBeTruthy();
+    });
+  });
 });
