@@ -102,9 +102,6 @@ describe('ui-noninteractive - DatatableUtComponent', () => {
     const ourDomTableUnderTest = document.querySelector('table#testTable');
 
     // // this should be animals put in our table
-    // const animalsInTable = Array.from(
-    //   ourDomTableUnderTest.getElementsByTagName('.mat-row')
-    // );
     const animalsInTable = Array.from(
       ourDomTableUnderTest.getElementsByClassName('mat-row')
     );
