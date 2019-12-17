@@ -19,9 +19,8 @@ export class PrimarySpiesComponent implements OnInit {
       .subscribe(pickles => (this.thesePickles = pickles));
     this.thesePickles = this.pickleFactory.allPickles();
   }
-  
+
   addPickle() {
     this.pickleFactory.addPickle({ type: 'Unknown', taste: 'Unknown', smell: 'Unknown'});
-    console.log('Pickle added');
   }
 }
