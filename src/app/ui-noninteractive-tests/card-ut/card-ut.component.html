@@ -1,3 +1,37 @@
-<p>
-  card-ut works!
-</p>
+<!-- Make sure you add a margin to the styling of a mat-card
+     else it will appear to not have a border, since the cards will
+     touch each other -->
+<mat-card>
+  <mat-card-title>A title</mat-card-title>
+  <mat-card-subtitle>A subtitle</mat-card-subtitle>
+  <img mat-card-image />
+  <mat-card-content>This is a basic mat card</mat-card-content>
+  <mat-card-actions></mat-card-actions>
+  <mat-card-footer></mat-card-footer>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+  <mat-card-title>A title</mat-card-title>
+  <mat-card-subtitle>A subtitle</mat-card-subtitle>
+  <img mat-card-avatar>
+  </mat-card-header>
+
+  <img mat-card-image />
+  <mat-card-content>This is a mat card with a header</mat-card-content>
+  <mat-card-actions></mat-card-actions>
+  <mat-card-footer></mat-card-footer>
+</mat-card>
+
+<mat-card>
+  <mat-card-title-group>
+  <mat-card-title>A title</mat-card-title>
+  <mat-card-subtitle>A subtitle</mat-card-subtitle>
+  <img mat-card-avatar>
+  </mat-card-title-group>
+
+  <img mat-card-image />
+  <mat-card-content>This is a mat card with a title group</mat-card-content>
+  <mat-card-actions></mat-card-actions>
+  <mat-card-footer></mat-card-footer>
+</mat-card>

@@ -6,6 +6,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 import { CardUtComponent } from './card-ut/card-ut.component';
 import { ListUtComponent } from './list-ut/list-ut.component';
@@ -38,7 +39,8 @@ import { UINoninteractiveTestsRoutingModule } from './ui-noninteractive-test-rou
     MatSnackBarModule,
     MatListModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
   entryComponents: [ SnackbarUTExampleComponent, DialogOverviewExampleDialogComponent ]
 })
