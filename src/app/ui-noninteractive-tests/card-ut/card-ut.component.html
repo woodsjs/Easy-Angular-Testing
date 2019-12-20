@@ -2,36 +2,54 @@
      else it will appear to not have a border, since the cards will
      touch each other -->
 <mat-card>
-  <mat-card-title>A title</mat-card-title>
-  <mat-card-subtitle>A subtitle</mat-card-subtitle>
-  <img mat-card-image />
-  <mat-card-content>This is a basic mat card</mat-card-content>
+  <img
+    mat-card-image
+    src="../../../assets/images/gray-foods-on-wicker-baskets.png"
+  />
+
+  <mat-card-title>Little Boulangerie</mat-card-title>
+  <mat-card-subtitle>Bread and Baked Goods</mat-card-subtitle>
+  <mat-card-content
+    >Little home bakery specializing in breads and sweet
+    treats.</mat-card-content
+  >
   <mat-card-actions></mat-card-actions>
   <mat-card-footer></mat-card-footer>
 </mat-card>
 
+<!-- sets the avatar to the first position, regardless of where it is declared -->
 <mat-card>
   <mat-card-header>
-  <mat-card-title>A title</mat-card-title>
-  <mat-card-subtitle>A subtitle</mat-card-subtitle>
-  <img mat-card-avatar>
+    <mat-card-title>Stucky Jim</mat-card-title>
+    <mat-card-subtitle>Available</mat-card-subtitle>
+    <img mat-card-avatar src="../../../assets/images/face.jpg" />
   </mat-card-header>
 
-  <img mat-card-image />
-  <mat-card-content>This is a mat card with a header</mat-card-content>
+  <img
+    mat-card-image
+    src="../../../assets/images/gray-foods-on-wicker-baskets.png"
+  />
+  <mat-card-content
+    >Sitting at Little Boulangerie having an espresso and some pain au
+    chocolate!</mat-card-content
+  >
   <mat-card-actions></mat-card-actions>
   <mat-card-footer></mat-card-footer>
 </mat-card>
 
+<!-- sets the avatar to the last position in the header, regardless of where it is declared -->
 <mat-card>
   <mat-card-title-group>
-  <mat-card-title>A title</mat-card-title>
-  <mat-card-subtitle>A subtitle</mat-card-subtitle>
-  <img mat-card-avatar>
+    <img mat-card-avatar src="../../../assets/images/face.jpg" />
+    <mat-card-title>Stucky Jim</mat-card-title>
+    <mat-card-subtitle>Offline</mat-card-subtitle>
   </mat-card-title-group>
 
-  <img mat-card-image />
-  <mat-card-content>This is a mat card with a title group</mat-card-content>
+  <img
+    mat-card-image
+    src="../../../assets/images/gray-foods-on-wicker-baskets.png"
+  />
+  <mat-card-content>What an experience!</mat-card-content>
   <mat-card-actions></mat-card-actions>
   <mat-card-footer></mat-card-footer>
 </mat-card>
