@@ -4,15 +4,11 @@
 <mat-card>
   <img
     mat-card-image
-    src="../../../assets/images/gray-foods-on-wicker-baskets.png"
-  />
+    src={{cardOne.img}} />
 
-  <mat-card-title>Little Boulangerie</mat-card-title>
-  <mat-card-subtitle>Bread and Baked Goods</mat-card-subtitle>
-  <mat-card-content
-    >Little home bakery specializing in breads and sweet
-    treats.</mat-card-content
-  >
+  <mat-card-title>{{ cardOne.title }}</mat-card-title>
+  <mat-card-subtitle>{{ cardOne.subtitle }}</mat-card-subtitle>
+  <mat-card-content>{{ cardOne.content }}</mat-card-content>
   <mat-card-actions></mat-card-actions>
   <mat-card-footer></mat-card-footer>
 </mat-card>
@@ -20,19 +16,14 @@
 <!-- sets the avatar to the first position, regardless of where it is declared -->
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Stucky Jim</mat-card-title>
-    <mat-card-subtitle>Available</mat-card-subtitle>
-    <img mat-card-avatar src="../../../assets/images/face.jpg" />
+    <mat-card-title>{{ cardTwo.title }}</mat-card-title>
+    <mat-card-subtitle>{{ cardTwo.subtitle }}</mat-card-subtitle>
+    <img mat-card-avatar src={{cardTwo.avatar}} />
   </mat-card-header>
-
   <img
     mat-card-image
-    src="../../../assets/images/gray-foods-on-wicker-baskets.png"
-  />
-  <mat-card-content
-    >Sitting at Little Boulangerie having an espresso and some pain au
-    chocolate!</mat-card-content
-  >
+    src={{cardTwo.img}} />
+  <mat-card-content>{{ cardTwo.content }}</mat-card-content>
   <mat-card-actions></mat-card-actions>
   <mat-card-footer></mat-card-footer>
 </mat-card>
@@ -40,16 +31,16 @@
 <!-- sets the avatar to the last position in the header, regardless of where it is declared -->
 <mat-card>
   <mat-card-title-group>
-    <img mat-card-avatar src="../../../assets/images/face.jpg" />
-    <mat-card-title>Stucky Jim</mat-card-title>
-    <mat-card-subtitle>Offline</mat-card-subtitle>
+    <img mat-card-avatar src={{cardThree.avatar}} />
+    <mat-card-title>{{ cardThree.title }}</mat-card-title>
+    <mat-card-subtitle>{{ cardThree.subtitle }}</mat-card-subtitle>
   </mat-card-title-group>
 
   <img
     mat-card-image
-    src="../../../assets/images/gray-foods-on-wicker-baskets.png"
+    src={{cardThree.img}}
   />
-  <mat-card-content>What an experience!</mat-card-content>
+  <mat-card-content>{{ cardThree.content }}</mat-card-content>
   <mat-card-actions></mat-card-actions>
   <mat-card-footer></mat-card-footer>
 </mat-card>
