@@ -27,11 +27,18 @@ export class CardUtComponent implements OnInit {
     avatar: '../../../assets/images/face.jpg',
     title: 'Stucky Jim',
     subtitle: 'Offline',
-    content:
-      'What an experience!'
+    content: 'What an experience!'
   };
 
   constructor() {}
 
   ngOnInit() {}
+
+  makeReservation() {
+    console.log('Reserve');
+  }
+
+  messageUser() {
+    console.log('Message user');
+  }
 }
