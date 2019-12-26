@@ -51,8 +51,13 @@ describe('ui-noninteractive - CardUtComponent', () => {
 
   // we're not testing instantiating a card. That would typically be an ngfor in our
   // html. We don't need to do the ugliness of building dom elements and injecting them.
-  // This is Angular!
 
+  // note - this is not optimal, from data structure to code. On thing I would do
+  // differently is have an attribute on the data that denoted available and unavailable,
+  // and set the user's status based on that. We could even have to attributes, an availability
+  // attribute that is something like "online|offline" and a status attribute, that the
+  // user could set themselves. If online, set status, if offline, set as offline.
+  //
   // Why are we doing this test?  While writing the tests, this one kept failing
   // I couldn't find any issue with the data.  While debugging,
   // I found there was a space being injected somewhere in one of the
