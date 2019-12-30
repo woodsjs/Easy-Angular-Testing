@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatBottomSheetModule } from '@angular/material';
 
 import { BottomsheetUtComponent } from './bottomsheet-ut.component';
 
@@ -8,9 +9,9 @@ describe('ui-noninteractive - BottomsheetUtComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BottomsheetUtComponent ]
-    })
-    .compileComponents();
+      declarations: [BottomsheetUtComponent],
+      imports: [MatBottomSheetModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
