@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import {
   MatBottomSheet,
-  MatBottomSheetRef
+  MatBottomSheetRef,
+  MAT_BOTTOM_SHEET_DATA
 } from '@angular/material/bottom-sheet';
 
 @Component({
@@ -10,14 +11,33 @@ import {
   styleUrls: ['./bottomsheet-ut.component.css']
 })
 export class BottomsheetUtComponent implements OnInit {
+  messages;
+  testMessages = [
+    { from: 'Fran', content: 'Is Jim around?' },
+    { from: 'You', content: "Haven't seen him today" },
+    { from: 'Fran', content: 'ugh, need him to look at some code' },
+    { from: 'You', content: 'Anything I can do?' }
+  ];
+
   // tslint:disable-next-line: variable-name
   constructor(private _bottomSheet: MatBottomSheet) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getMessages();
+  }
+
+  getMessages() {
+    // this would be a call to an api...
+    // to distinguish for our testing ,the names and such are
+    // different than our mock data
+    this.messages = this.testMessages;
+  }
 
   openBottomSheet(): void {
     // tslint:disable-next-line: no-use-before-declare
-    this._bottomSheet.open(BottomSheetOverviewExampleSheetComponent);
+    this._bottomSheet.open(BottomSheetOverviewExampleSheetComponent, {
+      data: this.messages
+    });
   }
 }
 
@@ -27,21 +47,18 @@ export class BottomsheetUtComponent implements OnInit {
   styleUrls: ['./bottomsheet-ut.component.css']
 })
 export class BottomSheetOverviewExampleSheetComponent {
-  messages = [
-    { from: 'Jim', content: 'Do you have the new file?' },
-    { from: 'You', content: 'I don\'t, can you resend?' },
-    { from: 'Jim', content: 'Yep. Just sent. Let me know if you get it.' },
-    { from: 'You', content: 'Got it, thanks!' }
-  ];
+  messages;
   constructor(
     // tslint:disable-next-line: variable-name
     private _bottomSheetRef: MatBottomSheetRef<
       BottomSheetOverviewExampleSheetComponent
-    >
-  ) {}
+    >,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
+  ) {
+    this.getMessages();
+  }
 
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
+  getMessages() {
+    this.messages = this.data;
   }
 }
