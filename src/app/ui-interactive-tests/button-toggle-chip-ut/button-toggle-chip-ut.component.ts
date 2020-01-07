@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-button-toggle-chip-ut',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ButtonToggleChipUtComponent implements OnInit {
 
-  constructor() { }
+  medForm: FormGroup;
+
+  constructor() {
+    this.medForm = new FormGroup({
+      ageGroup: new FormControl(''),
+      originCountry: new FormControl(''),
+      gender: new FormControl('')
+    });
+  }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    console.log('form submitted ', this.medForm.value);
   }
 
 }

@@ -1,3 +1,68 @@
-<p>
-  button-toggle-chip-ut works!
-</p>
+<form [formGroup]="medForm" (submit)="onSubmit()">
+  <!-- <mat-button-toggle> are on/off toggles with the appearance of a button.
+  These toggles can be configured to behave as either radio-buttons or checkboxes.
+  While they can be standalone, they are typically part of a mat-button-toggle-group.
+-->
+
+  <mat-button-toggle-group
+    id="ageSelection"
+    #group="matButtonToggleGroup"
+    formControlName="ageGroup"
+  >
+    <mat-button-toggle value="1" aria-label="Text align left">
+      <span>1-12</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="13" aria-label="Text align center">
+      <span>13-18</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="19" aria-label="Text align center">
+      <span>19-25</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="26" aria-label="Text align center">
+      <span>26-35</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="36" aria-label="Text align center">
+      <span>36+</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-button-toggle-group
+    id="originSelection"
+    #group="matButtonToggleGroup"
+    multiple
+    formControlName="originCountry"
+  >
+    <mat-button-toggle value="white" aria-label="Text align left">
+      <span>White</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="black" aria-label="Text align center">
+      <span>Black</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="native" aria-label="Text align center">
+      <span>Native American</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="hispanic" aria-label="Text align center">
+      <span>Hispanic</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="other" aria-label="Text align center">
+      <span>Other</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <!-- <mat-chip-list> displays a list of values as individual,
+  keyboard accessible, chips. -->
+
+  <mat-chip-list
+    aria-label="Gender"
+    formControlName="gender"
+    id="genderSelection"
+  >
+    <mat-chip value="male">Male</mat-chip>
+    <mat-chip value="female">Female</mat-chip>
+    <mat-chip color="primary" value="transgender">Transgender</mat-chip>
+    <mat-chip color="accent" value="binary">Binary</mat-chip>
+    <mat-chip color="accent" value="other" selected>other</mat-chip>
+  </mat-chip-list>
+
+  <button mat-button>Submit</button>
+</form>
