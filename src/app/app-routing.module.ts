@@ -20,11 +20,18 @@ const routes: Routes = [
         mod => mod.SpiesTestsModule
       )
   },
-    {
+  {
     path: 'uiNoninteractive',
     loadChildren: () =>
       import('./ui-noninteractive-tests/ui-noninteractive-tests.module').then(
         mod => mod.UiNoninteractiveTestsModule
+      )
+  },
+  {
+    path: 'uiInteractive',
+    loadChildren: () =>
+      import('./ui-interactive-tests/ui-interactive-tests.module').then(
+        mod => mod.UiInteractiveTestsModule
       )
   },
   {
