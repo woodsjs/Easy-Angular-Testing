@@ -28,6 +28,7 @@ export class ButtonToggleChipUtComponent implements OnInit {
 
   onSubmit() {
     console.log('form submitted ', this.medForm.value);
+    this.medForm.reset();
   }
 
   ageCheck() {
@@ -36,10 +37,18 @@ export class ButtonToggleChipUtComponent implements OnInit {
 
     // we would do this a bit differently in the "real world"
     if (ageSelection === 1) {
+      if (this.medForm.contains('speakToParents')) {
+        this.medForm.removeControl('speakToParents');
+      }
+
       this.medForm.addControl('legalGuardian', new FormControl(''));
       this.under13 = true;
       this.speakToParent = false;
     } else if (ageSelection === 13) {
+      if (this.medForm.contains('legalGuardian')) {
+        this.medForm.removeControl('legalGuardian');
+      }
+
       this.medForm.addControl('speakToParents', new FormControl(''));
       this.speakToParent = true;
       this.under13 = false;

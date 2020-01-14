@@ -1,4 +1,4 @@
-<form [formGroup]="medForm" (submit)="onSubmit()">
+<form [formGroup]="medForm" (submit)="onSubmit()" id="medForm">
   <!-- <mat-button-toggle> are on/off toggles with the appearance of a button.
   These toggles can be configured to behave as either radio-buttons or checkboxes.
   While they can be standalone, they are typically part of a mat-button-toggle-group.
@@ -44,7 +44,7 @@
       formControlName="legalGuardian"
     >
       <mat-button-toggle value="1"><span>Yes</span></mat-button-toggle>
-      <mat-button-toggle value="2"><span>No</span></mat-button-toggle>
+      <mat-button-toggle value="0"><span>No</span></mat-button-toggle>
     </mat-button-toggle-group>
     <br />
   </div>
@@ -96,13 +96,15 @@
 
   <br />
 
-  <div style="display: flex; flex-direction: row; justify-content: left;">
-    <label for="genderSelection" style="margin-right: 0.5rem;">Gender</label>
+  <label for="genderSelection" style="margin-right: 0.5rem;">Gender</label>
 
+  <div
+    style="display: flex; flex-direction: row; justify-content: left;"
+    id="genderSelection"
+  >
     <mat-chip-list
       aria-label="Gender"
       formControlName="gender"
-      id="genderSelection"
       style=" margin-bottom: 0.5rem;"
     >
       <mat-chip value="male">Male</mat-chip>
@@ -114,5 +116,5 @@
   </div>
 
   <br />
-  <button mat-button>Submit</button>
+  <button mat-button id="submitButton">Submit</button>
 </form>
