@@ -10,6 +10,7 @@ export class ButtonToggleChipUtComponent implements OnInit {
   medForm: FormGroup;
   under13 = false;
   speakToParent = false;
+  submitResult;
 
   constructor() {
     this.medForm = new FormGroup({
@@ -17,7 +18,6 @@ export class ButtonToggleChipUtComponent implements OnInit {
       legalGuardian: new FormControl(''),
       speakToParents: new FormControl(''),
       originCountry: new FormControl(''),
-      gender: new FormControl('')
     });
   }
 
@@ -27,12 +27,12 @@ export class ButtonToggleChipUtComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('form submitted ', this.medForm.value);
+    // console.log('form submitted ', this.medForm.value);
+    this.submitResult = this.medForm.value;
     this.medForm.reset();
   }
 
   ageCheck() {
-    console.log('Our age is ', this.medForm.controls.ageGroup.value);
     const ageSelection = parseInt(this.medForm.controls.ageGroup.value, 10);
 
     // we would do this a bit differently in the "real world"

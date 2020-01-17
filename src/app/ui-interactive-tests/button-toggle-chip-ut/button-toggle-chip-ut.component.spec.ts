@@ -1,7 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  fakeAsync
+} from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule, MatChip } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 
 import { ButtonToggleChipUtComponent } from './button-toggle-chip-ut.component';
@@ -12,8 +17,19 @@ describe('ButtonToggleChipUtComponent', () => {
 
   const adultTestData = {
     ageGroup: '19',
-    originCountry: { 0: 'hispanic', 1: 'black' },
-    gender: 'male'
+    originCountry: ['hispanic', 'black']
+  };
+
+  const childTestData = {
+    ageGroup: '1',
+    legalGuardian: '1',
+    originCountry: ['white']
+  };
+
+  const adolescentData = {
+    ageGroup: '13',
+    speakToParents: '0',
+    originCountry: ['native']
   };
 
   beforeEach(async(() => {
@@ -39,7 +55,7 @@ describe('ButtonToggleChipUtComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should submit data for a child when submit pressed', () => {
+  it('should submit data for a child when submit pressed', fakeAsync(() => {
     // select our age
     const ageGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
       'mat-button-toggle-group#ageSelection'
@@ -52,7 +68,8 @@ describe('ButtonToggleChipUtComponent', () => {
     // now we're an array, so we can use methods like filter to get the
     // toggle we're interested in
     const ageToggleUnderTest = ageButtonToggles.filter(
-      buttonToggle => parseInt(buttonToggle.getAttribute('value'), 10) === 1
+      buttonToggle =>
+        buttonToggle.getAttribute('value') === childTestData.ageGroup
     );
 
     // we have a button instide the mat-button-toggle element, so let's grab one layer deeper
@@ -72,7 +89,8 @@ describe('ButtonToggleChipUtComponent', () => {
     );
 
     const guardianToggleUnderTest = guardianButtonToggles.filter(
-      buttonToggle => parseInt(buttonToggle.getAttribute('value'), 10) === 1
+      buttonToggle =>
+        buttonToggle.getAttribute('value') === childTestData.legalGuardian
     );
 
     const guardianToggleButton = guardianToggleUnderTest[0].querySelector(
@@ -84,12 +102,12 @@ describe('ButtonToggleChipUtComponent', () => {
     fixture.detectChanges();
 
     // speakToParents doesn't show up
-    // const speakToParentsGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
-    //   'mat-button-toggle-group#speakToParents'
-    // );
+    const speakToParentsGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#speakToParents'
+    );
 
     // shouldn't exist
-    // expect(speakToParentsGroupToggle).toBefalsy()
+    expect(speakToParentsGroupToggle).toBeFalsy();
 
     // select our origin
     const originGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
@@ -101,7 +119,8 @@ describe('ButtonToggleChipUtComponent', () => {
     );
 
     const originToggleUnderTest = originButtonToggles.filter(
-      buttonToggle => buttonToggle.getAttribute('value') === 'white'
+      buttonToggle =>
+        buttonToggle.getAttribute('value') === childTestData.originCountry[0]
     );
 
     const originToggleButton = originToggleUnderTest[0].querySelector('button');
@@ -110,33 +129,6 @@ describe('ButtonToggleChipUtComponent', () => {
 
     fixture.detectChanges();
 
-    // // select the gender
-    const genderGroupChipList: HTMLElement = fixture.debugElement.nativeElement.querySelector(
-      'div#genderSelection mat-chip-list'
-    );
-
-    const genderButtonChipList = Array.from(
-      genderGroupChipList.getElementsByTagName('mat-chip')
-    );
-
-    const genderChipListUnderTest = genderButtonChipList.filter(
-      chipToggle => chipToggle.getAttribute('value') === 'male'
-    );
-
-    console.log('chips ', genderChipListUnderTest);
-    genderChipListUnderTest[0].dispatchEvent(new MouseEvent('click'));
-    fixture.detectChanges();
-
-    genderChipListUnderTest[0].dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'Spacebar' })
-    );
-
-    fixture.detectChanges();
-    genderChipListUnderTest[0].dispatchEvent(
-      new KeyboardEvent('keyup', { key: 'Spacebar' })
-    );
-
-    fixture.detectChanges();
     // Submit that baby!
     const button = fixture.debugElement.nativeElement.querySelector(
       'button#submitButton'
@@ -145,15 +137,175 @@ describe('ButtonToggleChipUtComponent', () => {
     button.dispatchEvent(new MouseEvent('click'));
 
     fixture.detectChanges();
-  });
+
+    expect(component.submitResult).toEqual(childTestData);
+  }));
 
   it('should submit data for a adolescent when submit pressed', () => {
-    expect(component).toBeTruthy();
+    // select our age
+    const ageGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#ageSelection'
+    );
+
+    const ageButtonToggles = Array.from(
+      ageGroupToggle.getElementsByTagName('mat-button-toggle')
+    );
+
+    // now we're an array, so we can use methods like filter to get the
+    // toggle we're interested in
+    const ageToggleUnderTest = ageButtonToggles.filter(
+      buttonToggle =>
+        buttonToggle.getAttribute('value') === adolescentData.ageGroup
+    );
+
+    // we have a button instide the mat-button-toggle element, so let's grab one layer deeper
+    const ageToggleButton = ageToggleUnderTest[0].querySelector('button');
+
+    ageToggleButton.dispatchEvent(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    // since it's a teen person, let's find out if they want us to
+    // talk to a parent/guardian
+    const speakToParentToggleGroup: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#speakToParents'
+    );
+
+    const speakToParentToggles = Array.from(
+      speakToParentToggleGroup.getElementsByTagName('mat-button-toggle')
+    );
+
+    const speakToParentToggleUnderTest = speakToParentToggles.filter(
+      buttonToggle =>
+        buttonToggle.getAttribute('value') === adolescentData.speakToParents
+    );
+
+    const speakToParentsToggleButton = speakToParentToggleUnderTest[0].querySelector(
+      'button'
+    );
+
+    speakToParentsToggleButton.dispatchEvent(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    // guardian doesn't show up
+    const guardianToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#legalGuardian'
+    );
+
+    // shouldn't exist
+    expect(guardianToggle).toBeFalsy();
+
+    // select our origin
+    const originGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#originSelection'
+    );
+
+    const originButtonToggles = Array.from(
+      originGroupToggle.getElementsByTagName('mat-button-toggle')
+    );
+
+    const originToggleUnderTest = originButtonToggles.filter(
+      buttonToggle =>
+        buttonToggle.getAttribute('value') === adolescentData.originCountry[0]
+    );
+
+    const originToggleButton = originToggleUnderTest[0].querySelector('button');
+
+    originToggleButton.dispatchEvent(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    // Submit that baby!
+    const button = fixture.debugElement.nativeElement.querySelector(
+      'button#submitButton'
+    );
+
+    button.dispatchEvent(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    expect(component.submitResult).toEqual(adolescentData);
   });
 
   it('should submit data for an adult when submit pressed', () => {
-    expect(component).toBeTruthy();
+    // select our age
+    const ageGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#ageSelection'
+    );
+
+    const ageButtonToggles = Array.from(
+      ageGroupToggle.getElementsByTagName('mat-button-toggle')
+    );
+
+    // now we're an array, so we can use methods like filter to get the
+    // toggle we're interested in
+    const ageToggleUnderTest = ageButtonToggles.filter(
+      buttonToggle =>
+        buttonToggle.getAttribute('value') === adultTestData.ageGroup
+    );
+
+    // we have a button instide the mat-button-toggle element, so let's grab one layer deeper
+    const ageToggleButton = ageToggleUnderTest[0].querySelector('button');
+
+    ageToggleButton.dispatchEvent(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    // No extra toggles
+    const speakToParentToggleGroup: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#speakToParents'
+    );
+
+    // shouldn't exist
+    expect(speakToParentToggleGroup).toBeFalsy();
+
+    // guardian doesn't show up
+    const guardianToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#legalGuardian'
+    );
+
+    // shouldn't exist
+    expect(guardianToggle).toBeFalsy();
+
+    // select our origin
+    const originGroupToggle: HTMLElement = fixture.debugElement.nativeElement.querySelector(
+      'mat-button-toggle-group#originSelection'
+    );
+
+    const originButtonToggles = Array.from(
+      originGroupToggle.getElementsByTagName('mat-button-toggle')
+    );
+
+    const originTogglesUnderTest = originButtonToggles.filter(
+      buttonToggle =>
+        adultTestData.originCountry.indexOf(
+          buttonToggle.getAttribute('value')
+        ) > -1
+    );
+
+    for (const buttonToggle of originTogglesUnderTest) {
+      const thisButton = buttonToggle.querySelector('button');
+      thisButton.dispatchEvent(new MouseEvent('click'));
+      fixture.detectChanges();
+    }
+
+    // Submit that baby!
+    const button = fixture.debugElement.nativeElement.querySelector(
+      'button#submitButton'
+    );
+
+    button.dispatchEvent(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    expect(component.submitResult).toEqual(jasmine.objectContaining({
+      ageGroup: adultTestData.ageGroup,
+      originCountry: jasmine.arrayContaining(adultTestData.originCountry)
+    }));
   });
 
   it('should remove child fields and add adolescent fields when age is changed from 1 to 13', () => {});
 });
+
+let getOrigin = () => {};
