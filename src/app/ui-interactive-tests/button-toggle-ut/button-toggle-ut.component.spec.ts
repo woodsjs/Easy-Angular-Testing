@@ -9,11 +9,11 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule, MatChip } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 
-import { ButtonToggleChipUtComponent } from './button-toggle-chip-ut.component';
+import { ButtonToggleUtComponent } from './button-toggle-ut.component';
 
-describe('ButtonToggleChipUtComponent', () => {
-  let component: ButtonToggleChipUtComponent;
-  let fixture: ComponentFixture<ButtonToggleChipUtComponent>;
+describe('ButtonToggleUtComponent', () => {
+  let component: ButtonToggleUtComponent;
+  let fixture: ComponentFixture<ButtonToggleUtComponent>;
 
   const adultTestData = {
     ageGroup: '19',
@@ -34,7 +34,7 @@ describe('ButtonToggleChipUtComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ButtonToggleChipUtComponent],
+      declarations: [ButtonToggleUtComponent],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -46,7 +46,7 @@ describe('ButtonToggleChipUtComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonToggleChipUtComponent);
+    fixture = TestBed.createComponent(ButtonToggleUtComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -307,5 +307,3 @@ describe('ButtonToggleChipUtComponent', () => {
 
   it('should remove child fields and add adolescent fields when age is changed from 1 to 13', () => {});
 });
-
-let getOrigin = () => {};

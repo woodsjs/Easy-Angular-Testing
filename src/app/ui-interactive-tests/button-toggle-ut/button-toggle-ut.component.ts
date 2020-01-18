@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-button-toggle-chip-ut',
-  templateUrl: './button-toggle-chip-ut.component.html',
-  styleUrls: ['./button-toggle-chip-ut.component.css']
+  selector: 'app-button-toggle-ut',
+  templateUrl: './button-toggle-ut.component.html',
+  styleUrls: ['./button-toggle-ut.component.css']
 })
-export class ButtonToggleChipUtComponent implements OnInit {
+export class ButtonToggleUtComponent implements OnInit {
   medForm: FormGroup;
   under13 = false;
   speakToParent = false;

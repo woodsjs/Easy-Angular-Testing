@@ -7,10 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UIInteractiveTestsRoutingModule } from './ui-interactive-test-route.module';
 
-import { ButtonToggleChipUtComponent } from './button-toggle-chip-ut/button-toggle-chip-ut.component';
+import { ButtonToggleUtComponent } from './button-toggle-ut/button-toggle-ut.component';
 
 @NgModule({
-  declarations: [ ButtonToggleChipUtComponent ],
+  declarations: [ ButtonToggleUtComponent ],
   imports: [
     CommonModule,
     UIInteractiveTestsRoutingModule,

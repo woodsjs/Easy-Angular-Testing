@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ButtonToggleChipUtComponent } from './button-toggle-chip-ut/button-toggle-chip-ut.component';
+import { ButtonToggleUtComponent } from './button-toggle-ut/button-toggle-ut.component';
 
 const childRoutes: Routes = [
-  { path: 'buttonToggleTest', component: ButtonToggleChipUtComponent }
+  { path: 'buttonToggleTest', component: ButtonToggleUtComponent }
 ];
 
 @NgModule({
