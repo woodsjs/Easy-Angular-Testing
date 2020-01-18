@@ -1,0 +1,9 @@
+<mat-list role="list">
+  <mat-list-item *ngFor="let message of messages">
+    <h3 matLine class="from"> {{message.from}} </h3>
+    <p matLine>
+      <span class="content"> {{message.content}} </span>
+    </p>
+    <button mat-icon-button class="delete-button"><mat-icon>delete</mat-icon></button>
+  </mat-list-item>
+</mat-list>

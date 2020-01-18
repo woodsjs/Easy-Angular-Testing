@@ -1,0 +1,96 @@
+<form [formGroup]="medForm" (submit)="onSubmit()" id="medForm">
+  <!-- <mat-button-toggle> are on/off toggles with the appearance of a button.
+  These toggles can be configured to behave as either radio-buttons or checkboxes.
+  While they can be standalone, they are typically part of a mat-button-toggle-group.
+-->
+
+  <label for="ageSelection" style="margin-right: 0.5rem;">Age Group</label>
+  <mat-button-toggle-group
+    id="ageSelection"
+    #group="matButtonToggleGroup"
+    formControlName="ageGroup"
+    (change)="ageCheck()"
+    style=" margin-bottom: 0.5rem;"
+  >
+    <mat-button-toggle value="1" aria-label="Text align left">
+      <span>1-12</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="13" aria-label="Text align center">
+      <span>13-18</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="19" aria-label="Text align center">
+      <span>19-25</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="26" aria-label="Text align center">
+      <span>26-35</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="36" aria-label="Text align center">
+      <span>36+</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <br />
+
+  <!-- are you the legal parent or guardian? -->
+
+  <div *ngIf="under13">
+    <label for="legalGuardian" style="margin-right: 0.5rem;"
+      >Are you the Legal Guardian/Parent?</label
+    >
+
+    <mat-button-toggle-group
+      id="legalGuardian"
+      style="margin-bottom: 0.5rem"
+      formControlName="legalGuardian"
+    >
+      <mat-button-toggle value="1"><span>Yes</span></mat-button-toggle>
+      <mat-button-toggle value="0"><span>No</span></mat-button-toggle>
+    </mat-button-toggle-group>
+    <br />
+  </div>
+
+  <!-- are you comfortable with us speaking to your parents about this visit? -->
+  <div *ngIf="speakToParent">
+    <label for="speakToParents" style="margin-right: 0.5rem;"
+      >Can we speak to your parents about this visit?</label
+    >
+
+    <mat-button-toggle-group
+      id="speakToParents"
+      style="margin-bottom: 0.5rem"
+      formControlName="speakToParents"
+    >
+      <mat-button-toggle value="1"><span>Yes</span>></mat-button-toggle>
+      <mat-button-toggle value="0"><span>No</span></mat-button-toggle>
+    </mat-button-toggle-group>
+    <br />
+  </div>
+
+  <label for="originSelection" style="margin-right: 0.5rem;">Nationality</label>
+  <mat-button-toggle-group
+    id="originSelection"
+    #group="matButtonToggleGroup"
+    multiple
+    formControlName="originCountry"
+    style=" margin-bottom: 0.5rem;"
+  >
+    <mat-button-toggle value="white" aria-label="Text align left">
+      <span>White</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="black" aria-label="Text align center">
+      <span>Black</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="native" aria-label="Text align center">
+      <span>Native American</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="hispanic" aria-label="Text align center">
+      <span>Hispanic</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="other" aria-label="Text align center">
+      <span>Other</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <br />
+  <button mat-button id="submitButton">Submit</button>
+</form>
