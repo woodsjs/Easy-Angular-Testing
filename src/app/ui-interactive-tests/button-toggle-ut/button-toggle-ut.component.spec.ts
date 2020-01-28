@@ -304,6 +304,4 @@ describe('ButtonToggleUtComponent', () => {
       originCountry: jasmine.arrayContaining(adultTestData.originCountry)
     }));
   });
-
-  it('should remove child fields and add adolescent fields when age is changed from 1 to 13', () => {});
 });
