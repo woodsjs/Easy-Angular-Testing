@@ -1,6 +1,6 @@
 <mat-tab-group id='menu'>
   <mat-tab label="Beef">
-    <mat-accordion>
+    <mat-accordion id='beef'>
       <mat-expansion-panel *ngFor="let beef of beefMenu">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -10,12 +10,12 @@
             {{ beef.description }}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <span>An image here</span>
+        <span>{{beef.img}}</span>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>
   <mat-tab label="Chicken">
-    <mat-accordion>
+    <mat-accordion id='chicken'>
       <mat-expansion-panel *ngFor="let chicken of chickenMenu">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -25,12 +25,12 @@
             {{ chicken.description }}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <span>An image here</span>
+        <span>{{chicken.img}}</span>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>
   <mat-tab label="Pork">
-    <mat-accordion>
+    <mat-accordion id='pork'>
       <mat-expansion-panel *ngFor="let pork of porkMenu">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -40,7 +40,7 @@
             {{ pork.description }}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <span>An image here</span>
+        <span>{{pork.img}}</span>
       </mat-expansion-panel>
     </mat-accordion></mat-tab
   >
