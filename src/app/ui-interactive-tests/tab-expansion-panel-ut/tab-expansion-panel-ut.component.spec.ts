@@ -26,7 +26,7 @@ describe('TabExpansionPanelUtComponent', () => {
 
   const chickenMenu = [
     {
-      name: 'Grilleds breast',
+      name: 'Grilled breast',
       description: 'Yummy',
       img: ''
     },
@@ -81,7 +81,7 @@ describe('TabExpansionPanelUtComponent', () => {
   });
 
   // Do we have the right data in the beef tab?
-  it('should have the correct data in each tab', () => {
+  it('should have the correct data in the beef tab', () => {
     // mat-tab-header will have ng-reflect-selected-index
     // using our id, we can dive right into the elements we want to see
     const expansionPanels = document.querySelectorAll(
@@ -109,8 +109,10 @@ describe('TabExpansionPanelUtComponent', () => {
     });
   });
 
-  // Do we have the right data in the chicken tab?
-  it('should have the correct data in each tab', () => {
+  // Do we have the right data in the chicken tab? This is a bit longer
+  // than the last test, cause our Beef tab is the default so we have
+  // to grab this one
+  it('should have the correct data in the chicken tab', () => {
     // mat-tab-header will have ng-reflect-selected-index
     // using our id, we can dive right into the elements we want to see
     // const tabs = document.getElementsByClassName('mat-tab-label-content');
@@ -118,39 +120,52 @@ describe('TabExpansionPanelUtComponent', () => {
     // chicken is at index 1, so 0-1
     const labelContainer = document.getElementsByClassName('mat-tab-labels')[0];
 
+    let theElement: ChildNode;
+
     labelContainer.childNodes.forEach(element => {
       if (element.textContent === expectedTabLabels[1]) {
-        console.log('the element ', element);
-        element.dispatchEvent(new MouseEvent('mousedown'));
-        element.firstChild.dispatchEvent(new MouseEvent('click'));
-        console.log('the element after ', element);
+        console.log('the element ', element.textContent);
+        theElement = element;
       }
     });
 
-    const expansionPanels = document.querySelectorAll(
-      'mat-accordion#chicken mat-expansion-panel'
-    );
+    theElement.dispatchEvent(new MouseEvent('click'));
+    fixture.detectChanges();
 
-    console.log('expansion panels ', expansionPanels);
-
-    Array.from(expansionPanels).forEach(element => {
-      const headerTitle = element.querySelector(
-        'mat-expansion-panel-header mat-panel-title'
-      );
-      const headerDescription = element.querySelector(
-        'mat-expansion-panel-header mat-panel-description'
+    // things they are a changing
+    // so let's wait till they're done, then we can select
+    // the right accordian to test
+    // this is also how we move in and test our expansion panels! Let's see
+    fixture.whenStable().then(() => {
+      const expansionPanels = document.querySelectorAll(
+        'mat-accordion#chicken  mat-expansion-panel'
       );
 
-      const content = element.querySelector('div .mat-expansion-panel-body');
+      // let's grab our header info
+      Array.from(expansionPanels).forEach(element => {
+        const headerTitle = element.querySelector(
+          'mat-expansion-panel-header mat-panel-title'
+        );
+        const headerDescription = element.querySelector(
+          'mat-expansion-panel-header mat-panel-description'
+        );
 
-      expect(chickenMenu).toContain(
-        jasmine.objectContaining({
-          // Trim this content! There might be whitespace in front or back of the content to make it look good
-          name: headerTitle.textContent.trim(),
-          description: headerDescription.textContent.trim(),
-          img: content.textContent.trim()
-        })
-      );
+        // and our body stuff
+        const content = element.querySelector('div .mat-expansion-panel-body');
+
+        // now easy enough! We can create an object
+        // with the amount of data we need to validate
+        // this can be all elements, or just some. Then we test against
+        // our expected results
+        expect(chickenMenu).toContain(
+          jasmine.objectContaining({
+            // Trim this content! There might be whitespace in front or back of the content to make it look good
+            name: headerTitle.textContent.trim(),
+            description: headerDescription.textContent.trim(),
+            img: content.textContent.trim()
+          })
+        );
+      });
     });
   });
 });
