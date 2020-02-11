@@ -31,7 +31,6 @@ export class StepperComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.orderFormGroup = this._formBuilder.group({});
     this.addressFormGroup = this._formBuilder.group({
       street: ['', Validators.required],
       city: ['', Validators.required],
@@ -39,7 +38,14 @@ export class StepperComponent implements OnInit {
       country: ['', Validators.required]
     });
     this.paymentFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      paymentOption: ['', Validators.required]
     });
+  }
+
+  processStepperData() {
+    console.log('submitted');
+    console.log('order form ', this.itemsInCart);
+    console.log('add form grou ', this.addressFormGroup.value);
+    console.log('pay form ', this.paymentFormGroup.value);
   }
 }

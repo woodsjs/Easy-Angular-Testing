@@ -1,21 +1,21 @@
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step>
-    <form [formGroup]="orderFormGroup">
-      <ng-template matStepLabel>Verify your order</ng-template>
-      <mat-card class="example-card" *ngFor="let item of itemsInCart">
-        <mat-card-header>
-          <mat-card-title>{{ item.name }}</mat-card-title>
-          <mat-card-subtitle>
-            Author: {{ item.author }}
-            <br />
-            Cost: ${{ item.cost.toFixed(2) }}
-          </mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
+    <!-- <form> -->
+    <ng-template matStepLabel>Verify your order</ng-template>
+    <mat-card class="example-card" *ngFor="let item of itemsInCart">
+      <mat-card-header>
+        <mat-card-title>{{ item.name }}</mat-card-title>
+        <mat-card-subtitle>
+          Author: {{ item.author }}
+          <br />
+          Cost: ${{ item.cost.toFixed(2) }}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    <div>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+    <!-- </form> -->
   </mat-step>
   <mat-step [stepControl]="addressFormGroup">
     <form [formGroup]="addressFormGroup">
@@ -74,7 +74,7 @@
       <!-- make a more realistic payment group -->
       <mat-form-field>
         <mat-label>Payment Type: </mat-label>
-        <mat-select>
+        <mat-select formControlName="paymentOption">
           <mat-option *ngFor="let payType of paymentTypes" [value]="payType">
             {{ payType }}
           </mat-option>
@@ -87,12 +87,30 @@
     </form>
   </mat-step>
   <mat-step>
+    <ng-template matStepLabel>Validate Order</ng-template>
+    <h4>Validate your order details</h4>
+    <p>
+      {{ this.itemsInCart | json }}
+    </p>
+    <p>
+      {{ addressFormGroup.value | json }}
+    </p>
+    <p>
+      {{ paymentFormGroup.value | json }}
+    </p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="processStepperData()" matStepperNext>
+        Submit
+      </button>
+    </div>
+  </mat-step>
+  <mat-step>
     <ng-template matStepLabel>Order Placed!</ng-template>
     <p>
       Your order is placed. You should receive a notification within 24 hours.
     </p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
