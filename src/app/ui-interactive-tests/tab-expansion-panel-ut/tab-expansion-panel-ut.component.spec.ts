@@ -120,12 +120,10 @@ describe('TabExpansionPanelUtComponent', () => {
     // chicken is at index 1, so 0-1
     const labelContainer = document.getElementsByClassName('mat-tab-labels')[0];
 
-    console.log('our labels ', labelContainer);
     let theElement: ChildNode;
 
     labelContainer.childNodes.forEach(element => {
       if (element.textContent === expectedTabLabels[1]) {
-        console.log('the element ', element.textContent);
         theElement = element;
       }
     });

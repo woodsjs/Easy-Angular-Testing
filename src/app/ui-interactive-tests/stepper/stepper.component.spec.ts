@@ -66,11 +66,39 @@ describe('StepperComponent', () => {
 
   // this has a bunch of mat-cards. So grab and verify that data.
   it('should show the proper items on the first step', () => {
-    const stepOneContent = document.getElementsByClassName(
+    const stepContent = document.getElementsByClassName(
       'mat-horizontal-stepper-content'
     );
 
+    const stepOneContent = stepContent[0].children;
 
+    //   <mat-card-header>
+    //     <mat-card-title>{{ item.name }}</mat-card-title>
+    //     <mat-card-subtitle>
+    //       Author: {{ item.author }}
+    //       <br />
+    //       Cost: ${{ item.cost.toFixed(2) }}
+    //     </mat-card-subtitle>
+    //   </mat-card-header>
+
+    // we only want our mat-card stuff, not the buttons;
+    // and we can test as deep as we want, here we're only checking that each
+    // item's title is there
+    Array.from(stepOneContent).forEach(element => {
+      if (element.nodeName === 'MAT-CARD') {
+        const cardTitle = element.getElementsByTagName('mat-card-title')[0]
+          .textContent;
+        const cardSubtitle = element.getElementsByTagName(
+          'mat-card-subtitle'
+        )[0].textContent;
+
+        expect(expectedItemsInCart).toContain(
+          jasmine.objectContaining({
+            name: cardTitle.trim()
+          })
+        );
+      }
+    });
   });
 
   it('should show the correct form on the second step', () => {});
