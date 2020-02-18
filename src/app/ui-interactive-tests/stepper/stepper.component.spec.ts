@@ -101,11 +101,66 @@ describe('StepperComponent', () => {
     });
   });
 
-  it('should show the correct form on the second step', () => {});
+  // We're not going to check the form is built correctly, though we would here.
+  // It all depends on where the content is coming from. If it's a component brought in,
+  // we would test the form in its own component
+  it('should show the correct form on the second step', () => {
+    const stepContent = document.getElementsByClassName(
+      'mat-horizontal-stepper-content'
+    );
 
-  it('should show the correct data on the verification step', () => {});
+    const stepTwoContent = stepContent[1].children;
 
-  it('should submit the proper data when entering the final tab', () => {});
+    // we'll make sure a form is shown
+    expect(stepTwoContent[0].nodeName).toEqual('FORM');
 
-  it('should call processStepperData when the user accepts what is on the next to last tab', () => {});
+    // we'll makd sure it has the right id
+    expect(stepTwoContent[0].id).toEqual('addressForm');
+  });
+
+  it('should call processStepperData when the user accepts what is on the next to last tab', () => {
+    // we would set up some utility functions that would do our filling and moving
+    // between tabs. Here we'll do it in one place.
+
+    const spy = spyOn(component, 'processStepperData');
+
+    const stepContent = document.getElementsByClassName(
+      'mat-horizontal-stepper-content'
+    );
+
+    const stepOneButton = stepContent[0].getElementsByTagName('button');
+    // there's only one so just go with it
+    stepOneButton[0].dispatchEvent(new MouseEvent('click'));
+    fixture.detectChanges();
+
+    // we could fill out data here to test the flow, but we won't
+    // if we did, we wouldn't get the buttons up front.
+    const stepTwoContent = stepContent[1].getElementsByTagName('button');
+    Array.from(stepTwoContent).forEach(button => {
+      if (button.type === 'submit') {
+        button.dispatchEvent(new MouseEvent('click'));
+      }
+    });
+    fixture.detectChanges();
+
+    const stepThreeContent = stepContent[2].getElementsByTagName('button');
+    Array.from(stepThreeContent).forEach(button => {
+      if (button.type === 'submit') {
+        button.dispatchEvent(new MouseEvent('click'));
+      }
+    });
+    fixture.detectChanges();
+
+    const stepFourContent = stepContent[3].getElementsByTagName('button');
+    Array.from(stepFourContent).forEach(button => {
+      if (button.type === 'submit') {
+        button.dispatchEvent(new MouseEvent('click'));
+      }
+    });
+
+    // now we'd check that our last method was called
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalled();
+  });
 });

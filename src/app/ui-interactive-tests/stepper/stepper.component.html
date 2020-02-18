@@ -18,7 +18,7 @@
     <!-- </form> -->
   </mat-step>
   <mat-step [stepControl]="addressFormGroup">
-    <form [formGroup]="addressFormGroup">
+    <form [formGroup]="addressFormGroup" id="addressForm">
       <ng-template matStepLabel>Fill out your address</ng-template>
       <!-- make a more realistic address group -->
       <mat-form-field>
@@ -69,7 +69,7 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="paymentFormGroup">
-    <form [formGroup]="paymentFormGroup">
+    <form [formGroup]="paymentFormGroup" id="paymentForm">
       <ng-template matStepLabel>Enter payment information</ng-template>
       <!-- make a more realistic payment group -->
       <mat-form-field>
