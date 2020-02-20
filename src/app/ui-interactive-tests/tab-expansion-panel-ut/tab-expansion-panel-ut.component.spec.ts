@@ -124,7 +124,6 @@ describe('TabExpansionPanelUtComponent', () => {
 
     labelContainer.childNodes.forEach(element => {
       if (element.textContent === expectedTabLabels[1]) {
-        console.log('the element ', element.textContent);
         theElement = element;
       }
     });
