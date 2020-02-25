@@ -9,7 +9,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 // stepper
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule, MatSelectModule } from '@angular/material';
+import { MatInputModule, MatSelectModule, MatSlideToggleModule, MatSliderModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 
 import { UIInteractiveTestsRoutingModule } from './ui-interactive-test-route.module';
@@ -17,9 +17,11 @@ import { UIInteractiveTestsRoutingModule } from './ui-interactive-test-route.mod
 import { ButtonToggleUtComponent } from './button-toggle-ut/button-toggle-ut.component';
 import { TabExpansionPanelUtComponent } from './tab-expansion-panel-ut/tab-expansion-panel-ut.component';
 import { StepperComponent } from './stepper/stepper.component';
+import { SlideToggleSliderUtComponent } from './slide-toggle-slider-ut/slide-toggle-slider-ut.component';
+
 
 @NgModule({
-  declarations: [ ButtonToggleUtComponent, TabExpansionPanelUtComponent, StepperComponent ],
+  declarations: [ ButtonToggleUtComponent, TabExpansionPanelUtComponent, StepperComponent, SlideToggleSliderUtComponent ],
   imports: [
     CommonModule,
     UIInteractiveTestsRoutingModule,
@@ -34,7 +36,9 @@ import { StepperComponent } from './stepper/stepper.component';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatSliderModule
   ]
 })
 export class UiInteractiveTestsModule { }
