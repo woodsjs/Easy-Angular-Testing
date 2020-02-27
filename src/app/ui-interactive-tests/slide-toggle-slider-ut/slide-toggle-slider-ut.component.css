@@ -1,3 +1,5 @@
-/* #colorSelection {
-  background-color: red;
-} */
+div#colorPickers mat-card {
+  margin: 0.1em;
+  width: 30%;
+  display: inline-block;
+}
