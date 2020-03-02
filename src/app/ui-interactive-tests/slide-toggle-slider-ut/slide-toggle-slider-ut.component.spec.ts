@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { SlideToggleSliderUtComponent } from './slide-toggle-slider-ut.component';
 import { DebugElement } from '@angular/core';
@@ -48,27 +48,38 @@ describe('SlideToggleSliderUtComponent', () => {
     const dimensions = trackElement.getBoundingClientRect();
     const x = dimensions.left + dimensions.width * 0.18;
     const y = dimensions.top + dimensions.height * 0.18;
+    console.log('before slider ', slider.getAttribute('ng-reflect-model'));
 
     const event = document.createEvent('MouseEvent');
-    event.initMouseEvent('mousedown',
-      true, /* canBubble */
-      true, /* cancelable */
-      window, /* view */
-      0, /* detail */
-      x, /* screenX */
-      y, /* screenY */
-      x, /* clientX */
-      y, /* clientY */
-      false, /* ctrlKey */
-      false, /* altKey */
-      false, /* shiftKey */
-      false, /* metaKey */
-      0, /* button */
-      null /* relatedTarget */);
+    event.initMouseEvent(
+      'mousedown',
+      true /* canBubble */,
+      true /* cancelable */,
+      window /* view */,
+      0 /* detail */,
+      x /* screenX */,
+      y /* screenY */,
+      x /* clientX */,
+      y /* clientY */,
+      false /* ctrlKey */,
+      false /* altKey */,
+      false /* shiftKey */,
+      false /* metaKey */,
+      0 /* button */,
+      null /* relatedTarget */
+    );
+
     slider.dispatchEvent(event);
     fixture.detectChanges();
 
-    console.log(slider.getAttribute('ng-reflect-model'));
+    console.log('after slider ', slider.getAttribute('ng-reflect-model'));
+    console.log(
+      document.getElementById('colorSelection').style.backgroundColor
+    );
+    console.log(
+      window.getComputedStyle(document.querySelector('#colorSelection'))
+        .backgroundColor
+    );
 
     // be sure the color of the mat-card is adjusted when above
     expect(spy).toHaveBeenCalled();

@@ -26,6 +26,8 @@ export class SlideToggleSliderUtComponent implements OnInit {
   changeColorValue() {
     const el = document.getElementById('colorSelection');
 
+    console.log('color is ', el.style.backgroundColor);
+
     const bgColor =
       'rgb(' +
       this.redValue +
@@ -35,6 +37,9 @@ export class SlideToggleSliderUtComponent implements OnInit {
       this.blueValue +
       ')';
 
+    console.log('background color will be ', bgColor);
     el.style.backgroundColor = bgColor;
+
+    console.log('and is ', el.style.backgroundColor);
   }
 }
