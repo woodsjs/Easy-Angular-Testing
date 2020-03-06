@@ -1,10 +1,4 @@
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SlideToggleSliderUtComponent } from './slide-toggle-slider-ut.component';
 import { DebugElement } from '@angular/core';
@@ -13,7 +7,7 @@ import {
   MatSlideToggleModule,
   MatCardModule
 } from '@angular/material';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 describe('SlideToggleSliderUtComponent', () => {
   let component: SlideToggleSliderUtComponent;
@@ -26,7 +20,6 @@ describe('SlideToggleSliderUtComponent', () => {
         MatSliderModule,
         MatSlideToggleModule,
         FormsModule,
-        ReactiveFormsModule,
         MatCardModule
       ]
     }).compileComponents();
@@ -42,22 +35,29 @@ describe('SlideToggleSliderUtComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should change the color of the color selection when the slider is adjusted', async () => {
-    // be sure the changeColorValue method is called when the slider is moved
+  it('should change the color of the color selection when the slider is adjusted', () => {
+    // get our slider under test
     const sliderDE: DebugElement = fixture.debugElement;
     const sliderEL: HTMLElement = sliderDE.nativeElement;
     const slider = sliderEL.querySelector('mat-slider#redSlider');
 
-    const trackElement = await slider.querySelector('.mat-slider-wrapper')!;
+    // adjust percentage to adjust what the value is after we click
+    const percentage = 0.25;
+    // we're getting the child track, which is what actually slides
+    const trackElement = slider.querySelector('.mat-slider-wrapper');
+    // how big is it? where is it on the page?
     const dimensions = trackElement.getBoundingClientRect();
-    const percentage = 0.2;
 
-    const x = dimensions.left + dimensions.left * percentage;
-    const y = dimensions.top + dimensions.top * percentage;
+    // where is it on the page?
+    const x = dimensions.left;
+    const y = dimensions.top;
+    // where the click lands within our element
     const relativeX = Math.round(dimensions.width * percentage);
-    const relativeY = Math.round(dimensions.height * 0.5);
+    const relativeY = Math.round(dimensions.height * percentage);
 
     const event = document.createEvent('MouseEvent');
+
+    // https://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-eventgroupings-mouseevents
     event.initMouseEvent(
       'mousedown',
       true /* canBubble */,
@@ -76,37 +76,53 @@ describe('SlideToggleSliderUtComponent', () => {
       null /* relatedTarget */
     );
 
-    // for the next set of tests
-    // const spy = spyOn(component, 'changeColorValue').and.callThrough();
-
-    await slider.dispatchEvent(event);
+    slider.dispatchEvent(event);
     fixture.detectChanges();
 
-    // console.log('after slider ', slider.getAttribute('ng-reflect-model'));
-    // console.log(
-    //   document.getElementById('colorSelection').style.backgroundColor
-    // );
-    // console.log(
-    //   window.getComputedStyle(document.querySelector('#colorSelection'))
-    //     .backgroundColor
-    // );
-
     // be sure the color of the mat-card is adjusted when above
-    // expect(spy).toHaveBeenCalled();
+    // our ng-reflect attributes are built for testing like this,
+    // so let's use them
     const expectedColor =
       'rgb(' + slider.getAttribute('ng-reflect-model') + ', 125, 125)';
-    // console.log('expected color is ', expectedColor);
 
     const newColor = document.getElementById('colorSelection').style
       .backgroundColor;
-    // console.log('new color is ', newColor);
 
-    // for the next set of tests
-    // expect(spy).toHaveBeenCalled();
     expect(newColor).toBe(expectedColor);
   });
 
+  it('should call our method that changes the color of the selection', () => {
+    // be sure the changeColorValue method is called when the slider is moved
+    const sliderDE: DebugElement = fixture.debugElement;
+    const sliderEL: HTMLElement = sliderDE.nativeElement;
+    const slider = sliderEL.querySelector('mat-slider#redSlider');
+
+    const spy = spyOn(component, 'changeColorValue');
+
+    slider.dispatchEvent(new MouseEvent('mousedown'));
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalled();
+  });
+
   it('should lock the color selection when the slider is switched', () => {
-    expect(component).toBeTruthy();
+    const dElement: DebugElement = fixture.debugElement;
+    const sElement: HTMLElement = dElement.nativeElement;
+
+    // let's grab our slider to check the disabled status later
+    const slider = sElement.querySelector('mat-slider#redSlider');
+    // and we want our slideToggle. We go to the highest level of this element
+    // right now, so we can be sure to grab the right one by ID
+    const slideToggle = sElement.querySelector('mat-slide-toggle#redToggle');
+    // and here's the nested element we need. The input is what actually sets the value of this element!
+    // It's mat-slide-toggle -> label -> then both mat-slide-toggle-bar and mat-slide-toggle-content
+    // now we have an input with a role of "switch", which is what we want to click, and a toggle thumb container which
+    // is the nub inside of the toggle bar.
+    const slideToggleBarInput = slideToggle.querySelector('input.mat-slide-toggle-input');
+
+    slideToggleBarInput.dispatchEvent(new MouseEvent('click'));
+    fixture.detectChanges();
+
+    expect(slider.getAttribute('ng-reflect-disabled')).toBeTruthy();
   });
 });
