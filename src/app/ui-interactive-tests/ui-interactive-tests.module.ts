@@ -18,10 +18,11 @@ import { ButtonToggleUtComponent } from './button-toggle-ut/button-toggle-ut.com
 import { TabExpansionPanelUtComponent } from './tab-expansion-panel-ut/tab-expansion-panel-ut.component';
 import { StepperComponent } from './stepper/stepper.component';
 import { SlideToggleSliderUtComponent } from './slide-toggle-slider-ut/slide-toggle-slider-ut.component';
+import { SelectRadioCheckboxUtComponent } from './select-radio-checkbox-ut/select-radio-checkbox-ut.component';
 
 
 @NgModule({
-  declarations: [ ButtonToggleUtComponent, TabExpansionPanelUtComponent, StepperComponent, SlideToggleSliderUtComponent ],
+  declarations: [ ButtonToggleUtComponent, TabExpansionPanelUtComponent, StepperComponent, SlideToggleSliderUtComponent, SelectRadioCheckboxUtComponent ],
   imports: [
     CommonModule,
     UIInteractiveTestsRoutingModule,
