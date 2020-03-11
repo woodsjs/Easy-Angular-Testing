@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectRadioCheckboxUtComponent } from './select-radio-checkbox-ut.component';
+import { MatRadioModule, MatCheckboxModule, MatSelectModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('SelectRadioCheckboxUtComponent', () => {
   let component: SelectRadioCheckboxUtComponent;
@@ -8,7 +10,8 @@ describe('SelectRadioCheckboxUtComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectRadioCheckboxUtComponent ]
+      declarations: [ SelectRadioCheckboxUtComponent ],
+      imports: [MatRadioModule, MatCheckboxModule, MatSelectModule, FormsModule, ReactiveFormsModule]
     })
     .compileComponents();
   }));

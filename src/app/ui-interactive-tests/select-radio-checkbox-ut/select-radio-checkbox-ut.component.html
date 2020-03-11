@@ -1,3 +1,40 @@
-<p>
-  select-radio-checkbox-ut works!
-</p>
+<form [formGroup]="sandwichFormGroup" (submit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Sandwich: </mat-label>
+
+    <mat-label>Sandwiches</mat-label>
+    <mat-select required formControlName="sandwich">
+      <mat-option value="veggie">veggie</mat-option>
+      <mat-option value="beef">beef</mat-option>
+      <mat-option value="grilledChicken">grilled chicken</mat-option>
+      <mat-option value="grilledFish">grilled fish</mat-option>
+      <mat-option value="chickenSalad">chicken salad</mat-option>
+
+      <mat-option value="tunaSalad">tuna salad</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-label for="side">Side: </mat-label>
+
+  <mat-radio-group
+    aria-label="Would you like a side?"
+    formControlName="side"
+    id="side"
+  >
+    <mat-radio-button *ngFor="let side of sides" [value]="side">{{
+      side
+    }}</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-label
+    formArrayName="extras"
+    *ngFor="
+      let extra of sandwichFormGroup.controls.extras.controls;
+      index as i;
+    "
+  >
+    <mat-checkbox formControlName="{{i}}">{{ extraList[i].text }}</mat-checkbox>
+  </mat-label>
+
+  <button mat-button id="submitButton">Order</button>
+</form>
