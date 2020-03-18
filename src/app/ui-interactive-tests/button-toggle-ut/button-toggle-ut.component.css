@@ -1,0 +1,11 @@
+form {
+  display: grid;
+}
+
+#sandwich {
+  grid-row: 1 / 5;
+}
+
+#side {
+  display: flex;
+}

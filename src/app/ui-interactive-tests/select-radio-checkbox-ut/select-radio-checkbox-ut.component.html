@@ -1,40 +1,45 @@
 <form [formGroup]="sandwichFormGroup" (submit)="onSubmit()">
-  <mat-form-field>
+  <mat-form-field id="sandwich" class="block-field">
     <mat-label>Sandwich: </mat-label>
 
-    <mat-label>Sandwiches</mat-label>
-    <mat-select required formControlName="sandwich">
-      <mat-option value="veggie">veggie</mat-option>
-      <mat-option value="beef">beef</mat-option>
-      <mat-option value="grilledChicken">grilled chicken</mat-option>
-      <mat-option value="grilledFish">grilled fish</mat-option>
-      <mat-option value="chickenSalad">chicken salad</mat-option>
-
-      <mat-option value="tunaSalad">tuna salad</mat-option>
+    <mat-select
+      required
+      formControlName="sandwich"
+      (selectionChange)="selectionChanged($event)"
+      id="sandwichSelect"
+    >
+      <mat-option *ngFor="let sandwich of sandwichList" [value]="sandwich.name">{{ sandwich.text }}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <mat-label for="side">Side: </mat-label>
+  <div class="block-field">
+    <mat-label for="side">Side: </mat-label>
 
-  <mat-radio-group
-    aria-label="Would you like a side?"
-    formControlName="side"
-    id="side"
-  >
-    <mat-radio-button *ngFor="let side of sides" [value]="side">{{
-      side
-    }}</mat-radio-button>
-  </mat-radio-group>
+    <mat-radio-group
+      aria-label="Would you like a side?"
+      formControlName="side"
+      id="side"
+    >
+      <mat-radio-button *ngFor="let side of sides" [value]="side">{{
+        side
+      }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
 
-  <mat-label
-    formArrayName="extras"
-    *ngFor="
-      let extra of sandwichFormGroup.controls.extras.controls;
-      index as i;
-    "
-  >
-    <mat-checkbox formControlName="{{i}}">{{ extraList[i].text }}</mat-checkbox>
-  </mat-label>
+  <div class="block-field">
+    <mat-label>Extras: </mat-label>
+    <mat-label
+      formArrayName="extras"
+      *ngFor="
+        let extra of sandwichFormGroup.controls.extras.controls;
+        index as i
+      "
+    >
+      <mat-checkbox formControlName="{{ i }}">{{
+        extrasAvailable[i].text
+      }}</mat-checkbox>
+    </mat-label>
+  </div>
 
   <button mat-button id="submitButton">Order</button>
 </form>
