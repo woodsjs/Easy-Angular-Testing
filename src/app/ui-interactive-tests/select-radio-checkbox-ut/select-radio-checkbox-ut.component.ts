@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { not } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-select-radio-checkbox-ut',
@@ -27,7 +26,6 @@ export class SelectRadioCheckboxUtComponent implements OnInit {
     { name: 'tunaSalad', text: 'Tuna Salad', type: 'meat' }
   ];
 
-  nonMeat = ['veggie'];
   sandwichFormGroup;
   sandwichOrder;
 
@@ -47,13 +45,16 @@ export class SelectRadioCheckboxUtComponent implements OnInit {
     // clear our extras before we reFill it
     this.extrasAvailable.splice(0, this.extrasAvailable.length);
 
-    // let's add map-reduce to get our non-meat items to use here
+    const nonMeat = this.sandwichList
+      .map(v => (v.type === 'nonMeat' ? v.name : null))
+      .filter(v => v !== null);
+
     this.extraList.forEach((o, i) => {
       const sandwichType = this.sandwichFormGroup.controls.sandwich.value;
       // we need to trigger checkboxes when a sandwich is selected
       // if it's a non-meat sammy, don't have the xtra meat option
 
-      if (this.nonMeat.includes(sandwichType) === false) {
+      if (nonMeat.includes(sandwichType) === false) {
         const control = new FormControl();
         (this.sandwichFormGroup.controls.extras as FormArray).push(control);
         this.extrasAvailable.push({ id: o.id, text: o.text });
