@@ -93,11 +93,11 @@ describe('SlideToggleSliderUtComponent', () => {
 
   it('should call our method that changes the color of the selection', () => {
     // be sure the changeColorValue method is called when the slider is moved
+    const spy = spyOn(component, 'changeColorValue');
+
     const sliderDE: DebugElement = fixture.debugElement;
     const sliderEL: HTMLElement = sliderDE.nativeElement;
     const slider = sliderEL.querySelector('mat-slider#redSlider');
-
-    const spy = spyOn(component, 'changeColorValue');
 
     slider.dispatchEvent(new MouseEvent('mousedown'));
     fixture.detectChanges();
@@ -118,7 +118,9 @@ describe('SlideToggleSliderUtComponent', () => {
     // It's mat-slide-toggle -> label -> then both mat-slide-toggle-bar and mat-slide-toggle-content
     // now we have an input with a role of "switch", which is what we want to click, and a toggle thumb container which
     // is the nub inside of the toggle bar.
-    const slideToggleBarInput = slideToggle.querySelector('input.mat-slide-toggle-input');
+    const slideToggleBarInput = slideToggle.querySelector(
+      'input.mat-slide-toggle-input'
+    );
 
     slideToggleBarInput.dispatchEvent(new MouseEvent('click'));
     fixture.detectChanges();
