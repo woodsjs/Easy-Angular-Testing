@@ -84,6 +84,9 @@ export class SelectRadioCheckboxUtComponent implements OnInit {
       .filter(v => v !== null);
 
     this.sandwichOrder = this.sandwichFormGroup.value;
-    console.log('the sandwich order ', this.sandwichOrder);
+
+
+    this.sandwichOrder.extras = selectedOrderIds;
+    console.log('updated sammy ', this.sandwichOrder);
   }
 }
