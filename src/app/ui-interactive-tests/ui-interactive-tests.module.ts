@@ -26,6 +26,7 @@ import { TabExpansionPanelUtComponent } from './tab-expansion-panel-ut/tab-expan
 import { StepperComponent } from './stepper/stepper.component';
 import { SlideToggleSliderUtComponent } from './slide-toggle-slider-ut/slide-toggle-slider-ut.component';
 import { SelectRadioCheckboxUtComponent } from './select-radio-checkbox-ut/select-radio-checkbox-ut.component';
+import { InputFormfieldAutocompleteUtComponent } from './input-formfield-autocomplete-ut/input-formfield-autocomplete-ut.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SelectRadioCheckboxUtComponent } from './select-radio-checkbox-ut/selec
     TabExpansionPanelUtComponent,
     StepperComponent,
     SlideToggleSliderUtComponent,
-    SelectRadioCheckboxUtComponent
+    SelectRadioCheckboxUtComponent,
+    InputFormfieldAutocompleteUtComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ import { SelectRadioCheckboxUtComponent } from './select-radio-checkbox-ut/selec
     MatSlideToggleModule,
     MatSliderModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatInputModule
   ]
 })
 export class UiInteractiveTestsModule {}
