@@ -15,7 +15,8 @@ import {
   MatSlideToggleModule,
   MatSliderModule,
   MatRadioModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 
@@ -56,7 +57,8 @@ import { InputFormfieldAutocompleteUtComponent } from './input-formfield-autocom
     MatSliderModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule
   ]
 })
 export class UiInteractiveTestsModule {}

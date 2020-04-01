@@ -1,26 +1,30 @@
-<form>
+<form [formGroup]="addressForm" (submit)="onSubmit()">
   <!-- name -->
   <label for="name"
     >Name
     <mat-form-field id="name" appearance="outline">
-      <input matInput />
+      <input matInput  formControlName="name" />
     </mat-form-field>
   </label>
   <!-- nearby major city -->
   <!-- or do we want to choose state, and autopopulate capital city? -->
   <label for="city"
     >City
-    <mat-form-field required id="city"  appearance="outline">
-      <input matInput />
+    <mat-form-field id="city"  appearance="outline">
+      <input matInput required formControlName="city" />
     </mat-form-field>
   </label>
   <!-- state - autofill -->
   <label for="state"
     >State
-    <mat-form-field required id="state"  appearance="outline">
-      <input matInput required />
+    <mat-form-field id="state"  appearance="outline">
+      <input matInput required formControlName="state" type="text" [matAutocomplete]="auto" />
     </mat-form-field>
   </label>
   <!-- disable if required fields aren't filled -->
   <button>Submit</button>
 </form>
+
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+</mat-autocomplete>
