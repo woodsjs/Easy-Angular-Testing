@@ -3,7 +3,7 @@
   <label for="name"
     >Name
     <mat-form-field id="name" appearance="outline">
-      <input matInput  formControlName="name" />
+      <input matInput  formControlName="nameField" />
     </mat-form-field>
   </label>
   <!-- nearby major city -->
@@ -11,14 +11,14 @@
   <label for="city"
     >City
     <mat-form-field id="city"  appearance="outline">
-      <input matInput required formControlName="city" />
+      <input matInput required formControlName="cityField" />
     </mat-form-field>
   </label>
   <!-- state - autofill -->
   <label for="state"
     >State
     <mat-form-field id="state"  appearance="outline">
-      <input matInput required formControlName="state" type="text" [matAutocomplete]="auto" />
+      <input matInput required formControlName="stateField" type="text" [matAutocomplete]="auto" />
     </mat-form-field>
   </label>
   <!-- disable if required fields aren't filled -->
