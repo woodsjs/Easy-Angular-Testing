@@ -11,7 +11,7 @@
   <label for="city"
     >City
     <mat-form-field id="city"  appearance="outline">
-      <input matInput required formControlName="cityField" (focus)="filterCity()" [autocomplete]="cityAuto" />
+      <input matInput required formControlName="cityField" />
     </mat-form-field>
   </label>
   <!-- state - autofill -->
@@ -25,10 +25,7 @@
   <button>Submit</button>
 </form>
 
+<span>{{ addressForm.errors | json}}</span>
 <mat-autocomplete #auto="matAutocomplete">
   <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #cityAuto="matAutocomplete">
-  <mat-option *ngFor="let option of filteredCityOptions" [value]="option">{{option}}</mat-option>
 </mat-autocomplete>

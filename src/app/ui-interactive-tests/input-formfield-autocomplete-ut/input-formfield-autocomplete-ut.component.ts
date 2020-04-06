@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-input-formfield-autocomplete-ut',
   templateUrl: './input-formfield-autocomplete-ut.component.html',
-  styleUrls: ['./input-formfield-autocomplete-ut.component.css']
+  styleUrls: ['./input-formfield-autocomplete-ut.component.css'],
 })
 export class InputFormfieldAutocompleteUtComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
@@ -15,14 +17,14 @@ export class InputFormfieldAutocompleteUtComponent implements OnInit {
   options = [
     {
       state: 'Alabama',
-      city: ['Birmingham', 'Montgomery', 'Huntsville', 'Mobile']
+      city: ['Birmingham', 'Montgomery', 'Huntsville', 'Mobile'],
     },
     { state: 'Alaska', city: ['Anchorage'] },
     { state: 'Arizona', city: ['Phoenix', 'Tucson', 'Mesa', 'Chandler'] },
     { state: 'Arkansas', city: ['Little Rock'] },
     {
       state: 'California',
-      city: ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco']
+      city: ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco'],
     },
     { state: 'Colorado', city: ['Denver', 'Colorado Springs', 'Aurora'] },
     { state: 'Connecticut', city: ['Bridgeport', 'New Haven', 'Stamford'] },
@@ -61,28 +63,27 @@ export class InputFormfieldAutocompleteUtComponent implements OnInit {
     { state: 'South Dakota', city: ['Sioux Falls'] },
     {
       state: 'Tennessee',
-      city: ['Nashville', 'Memphis', 'Knoxville', 'Chattanooga']
+      city: ['Nashville', 'Memphis', 'Knoxville', 'Chattanooga'],
     },
     { state: 'Texas', city: ['Houston', 'San Antonio', 'Dallas'] },
     { state: 'Utah', city: ['Salt Lake City'] },
     { state: 'Virginia', city: ['Virginia Beach', 'Norfolk'] },
     { state: 'Washington', city: ['Seattle', 'Spokane'] },
-    { state: 'Wisconsin', city: ['Milwaukee', 'Madison', 'Green Bay'] }
+    { state: 'Wisconsin', city: ['Milwaukee', 'Madison', 'Green Bay'] },
   ];
 
   filteredOptions: Observable<string[]>;
-  filteredCityOptions;
 
   ngOnInit() {
     this.addressForm = this.fb.group({
       nameField: [''],
       cityField: [''],
-      stateField: ['']
-    });
+      stateField: [''],
+    }, {validators: [this.validateCity]});
 
     this.filteredOptions = this.addressForm.controls.stateField.valueChanges.pipe(
       startWith(''),
-      map(value => this._filterState(value))
+      map((value) => this._filterState(value))
     );
   }
 
@@ -94,24 +95,30 @@ export class InputFormfieldAutocompleteUtComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.options
-      .map(option => option.state)
-      .filter(option => option.toLowerCase().includes(filterValue));
+      .map((option) => option.state)
+      .filter((option) => option.toLowerCase().includes(filterValue));
   }
 
-  // trigger this when city field is in focus?
-  // private _filterCity(value: string) {
-  filterCity() {
-    // lowercase the value we have in
-    // const filterValue = value.toLowerCase();
-    // this.addressForm.controls.stateField.setValue('Illinois');
 
-    // take in the state value, if the state value exists
-    if (this.addressForm.controls.stateField.value !== '') {
-      // get the cities attached to that state
-      // we should probably look at this.filteredoptions?
-      this.filteredCityOptions = this.options.filter(option =>
-        option.state.toLowerCase().includes(this.addressForm.controls.stateField.value.toLowerCase())
+  // This wouldn't be nice in the real world
+  // We're basically having the user blindly type a city, and
+  // then hope that the city is defined for the state
+  // But it DOES show us a neat way to do build a validator
+  validateCity = (control: FormGroup) => {
+    const stateValue = control.get('stateField');
+    const cityValue = control.get('cityField');
+    let cityOptions;
+
+    if (stateValue.value !== null) {
+      cityOptions = this.options.filter((option) =>
+        option.state.toLowerCase().includes(stateValue.value.toLowerCase())
       )[0].city;
     }
+
+    return stateValue &&
+      cityValue &&
+      !cityOptions.includes(cityValue.value)
+      ? {noMatchingCity: 'The state has no city by that name defined'}
+      : null;
   }
 }
