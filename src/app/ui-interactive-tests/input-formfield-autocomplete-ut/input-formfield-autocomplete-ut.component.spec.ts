@@ -67,37 +67,75 @@ describe('InputFormfieldAutocompleteUtComponent', () => {
       ).nativeElement;
 
       for (const option of autocompleteOptions.children) {
-        expect(stateOptions).toContain(
-          option.getAttribute('ng-reflect-value')
-        );
+        expect(stateOptions).toContain(option.getAttribute('ng-reflect-value'));
       }
     });
   });
 
-  it('should properly populate the city list when our state is chosen', () => {
-    expect(component).toBeTruthy();
+  it('should properly validate the city input when our state is chosen', async () => {
+    // click our state form field
+    const stateMatFormField = fixture.debugElement.query(
+      By.css('mat-form-field#state input')
+    ).nativeElement;
+
+    stateMatFormField.click();
+    fixture.detectChanges();
+
+    await fixture.whenStable().then(() => {
+      // select state from the list
+      const stateAutoOption = fixture.debugElement.query(
+        By.css(
+          '.mat-autocomplete-panel mat-option[ng-reflect-value="' +
+            testState.state +
+            '"]'
+        )
+      ).nativeElement;
+
+      // after this the option is not actually selected...
+      stateAutoOption.click();
+      fixture.detectChanges();
+
+      // we need to do this, so the selection event fires
+      stateMatFormField.click();
+      fixture.detectChanges();
+
+      // let's check that the wrong value triggers the invalid response
+      component.addressForm.get('cityField').setValue('Houston');
+      fixture.detectChanges();
+
+      expect(component.addressForm.invalid).toBeTruthy();
+
+      // now let's fill in the city with a correct value
+      // setValue triggers all the goodness!
+      component.addressForm.get('cityField').setValue('Chicago');
+      fixture.detectChanges();
+
+      // and we should expect things to pass
+      expect(component.addressForm.invalid).toBeFalsy();
+    });
   });
 
   it('should activate submit button if required fields are filled', () => {
-    const nElement = fixture.debugElement.nativeElement;
-
     // let's get our input with the autocomplete
+    component.addressForm.get('stateField').setValue(testState.state);
+    component.addressForm.get('cityField').setValue(testState.city[0]);
+    fixture.detectChanges();
 
-    // and click in it
+    const theButton = fixture.debugElement.query(By.css('button')).nativeElement;
 
-    // and get our cdk container for the mat-autocomplete
-
-    // and type the state name
-
-    // now get the cities related to that state
-
-    // and enter one in the City box
-
-    // now check that our submit button is good
-    expect(component).toBeTruthy();
+    expect(theButton.disabled).toBeFalsy();
   });
 
-  it('should ', () => {
-    expect(component).toBeTruthy();
+  it('should not activate submit button if required fields are filled incorrectly', () => {
+    // let's get our input with the autocomplete
+    component.addressForm.get('stateField').setValue(testState.state);
+    component.addressForm.get('cityField').setValue('Houston');
+    fixture.detectChanges();
+
+    const theButton = fixture.debugElement.query(By.css('button')).nativeElement;
+
+    expect(theButton.disabled).toBeTruthy();
   });
+
+
 });
