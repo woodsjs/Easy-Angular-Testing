@@ -136,6 +136,4 @@ describe('InputFormfieldAutocompleteUtComponent', () => {
 
     expect(theButton.disabled).toBeTruthy();
   });
-
-
 });
