@@ -16,7 +16,12 @@ import {
   MatSliderModule,
   MatRadioModule,
   MatCheckboxModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 
@@ -28,6 +33,7 @@ import { StepperComponent } from './stepper/stepper.component';
 import { SlideToggleSliderUtComponent } from './slide-toggle-slider-ut/slide-toggle-slider-ut.component';
 import { SelectRadioCheckboxUtComponent } from './select-radio-checkbox-ut/select-radio-checkbox-ut.component';
 import { InputFormfieldAutocompleteUtComponent } from './input-formfield-autocomplete-ut/input-formfield-autocomplete-ut.component';
+import { DatepickerNavcontainersUtComponent } from './datepicker-navcontainers-ut/datepicker-navcontainers-ut.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,8 @@ import { InputFormfieldAutocompleteUtComponent } from './input-formfield-autocom
     StepperComponent,
     SlideToggleSliderUtComponent,
     SelectRadioCheckboxUtComponent,
-    InputFormfieldAutocompleteUtComponent
+    InputFormfieldAutocompleteUtComponent,
+    DatepickerNavcontainersUtComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +65,12 @@ import { InputFormfieldAutocompleteUtComponent } from './input-formfield-autocom
     MatRadioModule,
     MatCheckboxModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class UiInteractiveTestsModule {}

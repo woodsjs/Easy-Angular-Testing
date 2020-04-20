@@ -1,0 +1,13 @@
+.example-container {
+  /* position: absolute; */
+  /* top: 50%; */
+  /* bottom: 0;
+  left: 0;
+  right: 0; */
+  height: 100%;
+  background: #eee;
+}
+
+span#spacefiller {
+  flex: 1 1 auto;
+}
