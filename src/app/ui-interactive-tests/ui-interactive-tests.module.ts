@@ -21,7 +21,8 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatDividerModule
 } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 
@@ -70,7 +71,8 @@ import { DatepickerNavcontainersUtComponent } from './datepicker-navcontainers-u
     MatToolbarModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDividerModule
   ]
 })
 export class UiInteractiveTestsModule {}

@@ -2,17 +2,35 @@
   <mat-toolbar-row>
     <span id="sitename">Easy Angular Testing</span>
     <span id="spacefiller"></span>
-    <span>Need to put some links to pages here?</span>
+    <span
+      >Jim Jenkins
+      <mat-icon
+        class="example-icon"
+        aria-hidden="false"
+        aria-label="Example user verified icon"
+        >verified_user</mat-icon
+      >
+    </span>
   </mat-toolbar-row>
-
   <mat-toolbar-row>
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span id="spacefiller"></span>
+
     <input matInput [matDatepicker]="picker" />
+
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-datepicker
+      #picker
+      (monthSelected)="monthSelectedHandler($event)"
+      (yearSelected)="yearSelectedHandler($event)"
+      (dateInput)="dateInputHandler($event)"
+    ></mat-datepicker>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" opened>Sidenav content</mat-sidenav>
+  <mat-sidenav mode="side" closed #snav>Sidenav content</mat-sidenav>
   <mat-sidenav-content>Main content</mat-sidenav-content>
 </mat-sidenav-container>

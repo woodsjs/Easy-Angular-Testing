@@ -12,6 +12,17 @@ export class DatepickerNavcontainersUtComponent implements OnInit {
   ngOnInit() {
   }
 
+  monthSelectedHandler(event) {
+    console.log('Month selected ', event);
+  }
+
+  yearSelectedHandler(event) {
+    console.log('Year selected ', event);
+  }
+
+  dateInputHandler(event) {
+    console.log('Date Inputted ', event);
+  }
 }
 
 

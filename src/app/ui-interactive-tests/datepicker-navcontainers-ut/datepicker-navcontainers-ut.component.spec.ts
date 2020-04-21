@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatepickerNavcontainersUtComponent } from './datepicker-navcontainers-ut.component';
+import { MatSidenavModule, MatToolbarModule, MatIconModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DatepickerNavcontainersUtComponent', () => {
   let component: DatepickerNavcontainersUtComponent;
@@ -8,9 +10,16 @@ describe('DatepickerNavcontainersUtComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatepickerNavcontainersUtComponent ]
-    })
-    .compileComponents();
+      imports: [
+        MatSidenavModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        BrowserAnimationsModule
+      ],
+      declarations: [DatepickerNavcontainersUtComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
