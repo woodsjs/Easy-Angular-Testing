@@ -11,3 +11,7 @@
 span#spacefiller {
   flex: 1 1 auto;
 }
+
+mat-sidenav button {
+  display: block;
+}
