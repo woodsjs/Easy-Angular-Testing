@@ -1,0 +1,70 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span id="sitename">Easy Angular Testing</span>
+    <span id="spacefiller"></span>
+    <span
+      >Jim Jenkins
+      <mat-icon
+        class="example-icon"
+        aria-hidden="false"
+        aria-label="Example user verified icon"
+        >verified_user</mat-icon
+      >
+    </span>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span id="spacefiller"></span>
+
+    <input
+      matInput
+      [matDatepicker]="picker"
+      (dateChange)="dateChangeHandler($event)"
+      id="datepickerInput"
+    />
+
+    <mat-datepicker-toggle matSuffix [for]="picker" id="mainpicker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #picker
+      startView="multi-year"
+      [startAt]="startDate"
+    ></mat-datepicker>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" closed #snav>
+    <button mat-button id='january' (click)="ourMonth='january'">January</button>
+    <button mat-button id='february' (click)="ourMonth='february'">February</button>
+    <button mat-button id='march' (click)="ourMonth='march'">March</button>
+    <button mat-button id='april' (click)="ourMonth='april'">April</button>
+    <button mat-button id='may' (click)="ourMonth='may'">May</button>
+    <button mat-button id='june' (click)="ourMonth='june'">June</button>
+    <button mat-button id='july' (click)="ourMonth='july'">July</button>
+    <button mat-button id='august' (click)="ourMonth='august'">August</button>
+    <button mat-button id='september' (click)="ourMonth='september'">September</button>
+    <button mat-button id='october' (click)="ourMonth='october'">October</button>
+    <button mat-button id='november' (click)="ourMonth='november'">November</button>
+    <button mat-button id='december' (click)="ourMonth='december'">December</button>
+  </mat-sidenav>
+  <mat-sidenav-content
+    ><ng-container [ngTemplateOutlet]="this[ourMonth]"></ng-container
+  ></mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #january><span>January is a month of cold.</span></ng-template>
+<ng-template #february><span>february is big and bold.</span></ng-template>
+<ng-template #march><span>march along like a trooper.</span></ng-template>
+<ng-template #april><span>april lions are super.</span></ng-template>
+<ng-template #may><span>may I have some sunshine please?</span></ng-template>
+<ng-template #june><span>june the dogs lay out, with fleas.</span></ng-template>
+<ng-template #july><span>july it's hot, but not as hot.</span></ng-template>
+<ng-template #august><span>as august dog's days are at the top.</span></ng-template>
+<ng-template #september><span>september we see the cold come in.</span></ng-template>
+<ng-template #october><span>october the snow may start again.</span></ng-template>
+<ng-template #november
+  ><span>november we're done but time is left.</span></ng-template
+>
+<ng-template #december><span>december our boots are quite bereft.</span></ng-template>
