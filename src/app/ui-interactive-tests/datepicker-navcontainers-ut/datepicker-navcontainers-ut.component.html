@@ -22,9 +22,10 @@
       matInput
       [matDatepicker]="picker"
       (dateChange)="dateChangeHandler($event)"
+      id="datepickerInput"
     />
 
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker-toggle matSuffix [for]="picker" id="mainpicker"></mat-datepicker-toggle>
     <mat-datepicker
       #picker
       startView="multi-year"
